@@ -1,0 +1,22 @@
+{
+    "name": "Nebukam.Chemistry.Editor",
+    "references": [
+        "Unity.Burst",
+        "Unity.Collections",
+        "Unity.Jobs",
+        "Unity.Mathematics",
+        "Nebukam.Common",
+        "Nebukam.JobAssist",
+        "Nebukam.Geom",
+		"Nebukam.Cluster",
+        "Nebukam.Chemistry"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}

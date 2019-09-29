@@ -1,0 +1,26 @@
+{
+  "name": "com.nebukam.chemistry",
+  "version": "0.0.1",
+  "displayName": "N:Chemistry",
+  "description": "Chemistry toolkit for constraint-based procedural generation",
+  "unity": "2019.1",
+  "unityRelease": "10f1",
+  "keywords": [
+    "Procgen"
+  ],
+  "category": "Procgen",
+  "author": {
+    "name": "Timothe Lapetite",
+    "email": "nebukam@gmail.com",
+    "url": "https://github.com/Nebukam/com.nebukam.chemistry.git"
+  },
+  "dependencies": {
+	"com.unity.burst": "1.1.2",
+	"com.unity.collections": "0.0.9",
+	"com.unity.jobs": "0.0.7",
+	"com.unity.mathematics": "1.1.0",
+	"com.nebukam.common": "https://github.com/Nebukam/com.nebukam.common.git",
+    "com.nebukam.job-assist": "https://github.com/Nebukam/com.nebukam.job-assist.git",
+	"com.nebukam.slate": "https://github.com/Nebukam/com.nebukam.slate.git"
+  }
+}
