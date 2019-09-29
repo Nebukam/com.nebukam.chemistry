@@ -61,7 +61,7 @@ namespace Nebukam.Chemistry.Ed
             AssetDatabase.Refresh();
 
             grid.cluster.pos = grid.transform.position;
-            grid.cluster.Init(grid.gridSize, grid.slotModel.model, true);
+            grid.cluster.Init(grid.slotModel.model, grid.gridSize, true);
 
             if (grid.solver == null)
                 grid.solver = new SimpleSolver<ConstrainedSlot, ConstrainedSlotInfos>();
