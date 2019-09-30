@@ -6,15 +6,17 @@ namespace Nebukam.Chemistry
     /// <summary>
     /// Base solver bundle.
     /// </summary>
-    /// <typeparam name="S">Slot Type</typeparam>
-    /// <typeparam name="T">Slot Infos Type (paired with provided Slot type)</typeparam>
-    /// <typeparam name="J">Solver Job struct</typeparam>
-    /// <typeparam name="P">Solver processor (paired with provided Job type)</typeparam>
-    public class AbstractSolverBundle<S, T, J, P> : ProcessorChain
-        where S : ConstrainedSlot, ISlot
-        where T : struct, ISlotInfos<S>
-        where J : struct, IConstraintSolverJob<S, T>
-        where P : AbstractConstraintsSolverProcessor<S, T, J>, new()
+    /// <typeparam name="T_SLOT">Slot Type</typeparam>
+    /// <typeparam name="T_SLOT_INFOS">Slot Infos Type (paired with provided Slot type)</typeparam>
+    /// <typeparam name="T_JOB">Solver Job struct</typeparam>
+    /// <typeparam name="T_BRAIN">Cluster brain</typeparam>
+    /// <typeparam name="T_SOLVER">Solver processor (paired with provided Job type)</typeparam>
+    public class AbstractSolverBundle<T_SLOT, T_SLOT_INFOS, T_JOB, T_BRAIN, T_SOLVER> : ProcessorChain
+        where T_SLOT : ConstrainedSlot, ISlot
+        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
+        where T_JOB : struct, IConstraintSolverJob<T_SLOT, T_SLOT_INFOS>
+        where T_BRAIN : struct, IClusterBrain
+        where T_SOLVER : AbstractConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_JOB, T_BRAIN>, new()
     {
 
         public uint seed {
@@ -28,16 +30,16 @@ namespace Nebukam.Chemistry
             set { m_preparation.manifest = value; }
         }
 
-        public ISlotCluster<S> slotCluster
+        public ISlotCluster<T_SLOT, T_BRAIN> slotCluster
         {
             get { return m_preparation.slotCluster; }
             set { m_preparation.slotCluster = value; }
         }
 
-        protected SolverPreparation<S, T> m_preparation;
+        protected SolverPreparation<T_SLOT, T_SLOT_INFOS, T_BRAIN> m_preparation;
 
-        protected P m_constraintSolver;
-        public IConstraintsSolverProcessor<S, T> constraintSolver { get { return m_constraintSolver; } }
+        protected T_SOLVER m_constraintSolver;
+        public IConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN> constraintSolver { get { return m_constraintSolver; } }
 
         public AbstractSolverBundle()
         {

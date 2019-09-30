@@ -6,11 +6,12 @@ namespace Nebukam.Chemistry
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="S">Slot Type</typeparam>
-    /// <typeparam name="T">Slot Infos Type (paired with provided Slot type)</typeparam>
-    public class SolverPreparation<S, T> : ProcessorGroup
-        where S : ConstrainedSlot, ISlot
-        where T : struct, ISlotInfos<S>
+    /// <typeparam name="T_SLOT">Slot Type</typeparam>
+    /// <typeparam name="T_SLOT_INFOS">Slot Infos Type (paired with provided Slot type)</typeparam>
+    public class SolverPreparation<T_SLOT, T_SLOT_INFOS, T_BRAIN> : ProcessorGroup
+        where T_SLOT : ConstrainedSlot, ISlot
+        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
+        where T_BRAIN : struct, IClusterBrain
     {
 
         public AtomConstraintsManifest manifest
@@ -19,14 +20,14 @@ namespace Nebukam.Chemistry
             set { m_manifestProvider.manifest = value; }
         }
 
-        public ISlotCluster<S> slotCluster
+        public ISlotCluster<T_SLOT, T_BRAIN> slotCluster
         {
             get { return m_clusterProvider.slotCluster; }
             set { m_clusterProvider.slotCluster = value; }
         }
 
-        protected ClusterProvider<S, T> m_clusterProvider;
-        public IClusterProvider<S, T> clusterProvider { get { return m_clusterProvider; } }
+        protected ClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> m_clusterProvider;
+        public IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> clusterProvider { get { return m_clusterProvider; } }
 
         protected ConstraintsManifestProvider m_manifestProvider;
         public IConstraintsManifestProvider manifestProvider { get { return m_manifestProvider; } }

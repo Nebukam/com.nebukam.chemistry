@@ -30,14 +30,15 @@ namespace Nebukam.Chemistry
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="S">Slot Type</typeparam>
-    /// <typeparam name="T">Slot Infos Type (paired with provided Slot type)</typeparam>
-    public interface IConstraintsSolverProcessor<S, T> : IProcessor
-        where S : ConstrainedSlot, ISlot
-        where T : struct, ISlotInfos<S>
+    /// <typeparam name="T_SLOT">Slot Type</typeparam>
+    /// <typeparam name="T_SLOT_INFOS">Slot Infos Type (paired with provided Slot type)</typeparam>
+    public interface IConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN> : IProcessor
+        where T_SLOT : ConstrainedSlot, ISlot
+        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
+        where T_BRAIN : struct, IClusterBrain
     {
         uint seed { get; set; }
-        IClusterProvider<S, T> clusterProvider { get; }
+        IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> clusterProvider { get; }
         IConstraintsManifestProvider manifestProvider { get; }
         NativeArray<int> results { get; }
     }
@@ -48,18 +49,20 @@ namespace Nebukam.Chemistry
     /// <typeparam name="S">Slot Type</typeparam>
     /// <typeparam name="T">Slot Infos Type (paired with provided Slot type)</typeparam>
     /// <typeparam name="J">Solver Job struct</typeparam>
-    public abstract class AbstractConstraintsSolverProcessor<S, T, J> : Processor<J>, IConstraintsSolverProcessor<S, T>
+    /// <typeparam name="J">Cluster brain</typeparam>
+    public abstract class AbstractConstraintsSolverProcessor<S, T, J, B> : Processor<J>, IConstraintsSolverProcessor<S, T, B>
         where S : ConstrainedSlot, ISlot
         where T : struct, ISlotInfos<S>
         where J : struct, IConstraintSolverJob<S, T>
+        where B : struct, IClusterBrain
     {
 
-        protected IClusterProvider<S, T> m_clusterProvider = null;
+        protected IClusterProvider<S, T, B> m_clusterProvider = null;
         protected IConstraintsManifestProvider m_manifestProvider = null;
         protected NativeArray<int> m_results = new NativeArray<int>(0, Allocator.Persistent);
 
         public uint seed { get; set; } = 1;
-        public IClusterProvider<S, T> clusterProvider { get { return m_clusterProvider; } }
+        public IClusterProvider<S, T, B> clusterProvider { get { return m_clusterProvider; } }
         public IConstraintsManifestProvider manifestProvider { get { return m_manifestProvider; } }
         public NativeArray<int> results { get { return m_results; } }
 

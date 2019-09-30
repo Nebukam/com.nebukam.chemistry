@@ -5,11 +5,12 @@ namespace Nebukam.Chemistry
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="S">Slot Type</typeparam>
-    /// <typeparam name="T">Slot Infos Type (paired with provided Slot type)</typeparam>
-    public class SimpleSolver<S, T> : AbstractSolverBundle<S, T, SimpleConstraintsSolverJob<S, T>, SimpleConstraintsSolverProcessor<S, T>>
-        where S : ConstrainedSlot, ISlot
-        where T : struct, ISlotInfos<S>
+    /// <typeparam name="T_SLOT">Slot Type</typeparam>
+    /// <typeparam name="T_SLOT_INFOS">Slot Infos Type (paired with provided Slot type)</typeparam>
+    public class SimpleSolver<T_SLOT, T_SLOT_INFOS, T_BRAIN> : AbstractSolverBundle<T_SLOT, T_SLOT_INFOS, SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS>, T_BRAIN, SimpleConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN>>
+        where T_SLOT : ConstrainedSlot, ISlot
+        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
+        where T_BRAIN : struct, IClusterBrain
     {
 
     }

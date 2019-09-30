@@ -8,15 +8,15 @@ namespace Nebukam.Chemistry
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="S">Slot Type</typeparam>
-    /// <typeparam name="T">Slot Infos Type (paired with provided Slot type)</typeparam>
-    public interface IConstraintSolverJob<S, T> : IJob
-        where S : ConstrainedSlot, ISlot
-        where T : struct, ISlotInfos<S>
+    /// <typeparam name="T_SLOT">Slot Type</typeparam>
+    /// <typeparam name="T_SLOT_INFOS">Slot Infos Type (paired with provided Slot type)</typeparam>
+    public interface IConstraintSolverJob<T_SLOT, T_SLOT_INFOS> : IJob
+        where T_SLOT : ConstrainedSlot, ISlot
+        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
     {
 
         // Cluster infos
-        NativeArray<T> inputSlotInfos { set;}
+        NativeArray<T_SLOT_INFOS> inputSlotInfos { set;}
         NativeHashMap<ByteTrio, int> inputSlotCoordinateMap { set; }
 
         // Model infos

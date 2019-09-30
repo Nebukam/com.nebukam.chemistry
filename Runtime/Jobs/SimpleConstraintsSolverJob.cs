@@ -11,9 +11,9 @@ namespace Nebukam.Chemistry
 {
 
     [BurstCompile]
-    public struct SimpleConstraintsSolverJob<S, T> : IConstraintSolverJob<S, T>
-        where S : ConstrainedSlot, ISlot
-        where T : struct, ISlotInfos<S>
+    public struct SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS> : IConstraintSolverJob<T_SLOT, T_SLOT_INFOS>
+        where T_SLOT : ConstrainedSlot, ISlot
+        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
     {
 
         [ReadOnly]
@@ -23,7 +23,7 @@ namespace Nebukam.Chemistry
 
         // Cluster infos
         [ReadOnly]
-        public NativeArray<T> m_inputSlotInfos;
+        public NativeArray<T_SLOT_INFOS> m_inputSlotInfos;
         [ReadOnly]
         public NativeHashMap<ByteTrio, int> m_inputSlotCoordinateMap;
 
@@ -48,7 +48,7 @@ namespace Nebukam.Chemistry
         public NativeArray<int> m_results;
         
         // Cluster infos
-        public NativeArray<T> inputSlotInfos { set { m_inputSlotInfos = value; } }
+        public NativeArray<T_SLOT_INFOS> inputSlotInfos { set { m_inputSlotInfos = value; } }
         public NativeHashMap<ByteTrio, int> inputSlotCoordinateMap { set { m_inputSlotCoordinateMap = value; } }
 
         // Model infos
@@ -75,7 +75,7 @@ namespace Nebukam.Chemistry
             ByteTrio 
                 center, 
                 ncoord;
-            T current;
+            T_SLOT_INFOS current;
             int 
                 _s,
                 sCount,

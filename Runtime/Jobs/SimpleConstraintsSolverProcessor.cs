@@ -27,9 +27,10 @@ using Nebukam.Cluster;
 namespace Nebukam.Chemistry
 {
 
-    public class SimpleConstraintsSolverProcessor<S, T> : AbstractConstraintsSolverProcessor<S, T, SimpleConstraintsSolverJob<S, T>>, IConstraintsSolverProcessor<S, T>
-        where S : ConstrainedSlot, ISlot
-        where T : struct, ISlotInfos<S>
+    public class SimpleConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN> : AbstractConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS>, T_BRAIN>, IConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN>
+        where T_SLOT : ConstrainedSlot, ISlot
+        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
+        where T_BRAIN : struct, IClusterBrain
     {
 
         protected override void InternalLock()
@@ -37,7 +38,7 @@ namespace Nebukam.Chemistry
 
         }
 
-        protected override void Prepare(ref SimpleConstraintsSolverJob<S, T> job, float delta)
+        protected override void Prepare(ref SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS> job, float delta)
         {
 
             base.Prepare(ref job, delta);
@@ -81,7 +82,7 @@ namespace Nebukam.Chemistry
             */
         }
 
-        protected override void Apply(ref SimpleConstraintsSolverJob<S, T> job)
+        protected override void Apply(ref SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS> job)
         {
 
         }

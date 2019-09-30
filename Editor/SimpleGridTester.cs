@@ -13,7 +13,7 @@ namespace Nebukam.Chemistry.Ed
 
         public AtomConstraintsManifest manifest;
         public ISlotCluster<ConstrainedSlot, ClusterBrain> cluster = new SlotClusterFixed<ConstrainedSlot, ClusterBrain>();
-        public SimpleSolver<ConstrainedSlot, ConstrainedSlotInfos> solver;
+        public SimpleSolver<ConstrainedSlot, ConstrainedSlotInfos, ClusterBrain> solver;
         public GameObject nullPrefab;
 
     }
