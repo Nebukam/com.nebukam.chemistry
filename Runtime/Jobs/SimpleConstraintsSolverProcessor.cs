@@ -27,7 +27,7 @@ using Nebukam.Cluster;
 namespace Nebukam.Chemistry
 {
 
-    public class SimpleConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN> : AbstractConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS>, T_BRAIN>, IConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN>
+    public class SimpleConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN> : AbstractConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN>, T_BRAIN>, IConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN>
         where T_SLOT : ConstrainedSlot, ISlot
         where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
         where T_BRAIN : struct, IClusterBrain
@@ -38,7 +38,7 @@ namespace Nebukam.Chemistry
 
         }
 
-        protected override void Prepare(ref SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS> job, float delta)
+        protected override void Prepare(ref SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN> job, float delta)
         {
 
             base.Prepare(ref job, delta);
@@ -82,7 +82,7 @@ namespace Nebukam.Chemistry
             */
         }
 
-        protected override void Apply(ref SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS> job)
+        protected override void Apply(ref SimpleConstraintsSolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN> job)
         {
 
         }

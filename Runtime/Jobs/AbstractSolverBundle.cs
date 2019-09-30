@@ -14,7 +14,7 @@ namespace Nebukam.Chemistry
     public class AbstractSolverBundle<T_SLOT, T_SLOT_INFOS, T_JOB, T_BRAIN, T_SOLVER> : ProcessorChain
         where T_SLOT : ConstrainedSlot, ISlot
         where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
-        where T_JOB : struct, IConstraintSolverJob<T_SLOT, T_SLOT_INFOS>
+        where T_JOB : struct, IConstraintSolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN>
         where T_BRAIN : struct, IClusterBrain
         where T_SOLVER : AbstractConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_JOB, T_BRAIN>, new()
     {

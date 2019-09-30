@@ -46,23 +46,23 @@ namespace Nebukam.Chemistry
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="S">Slot Type</typeparam>
-    /// <typeparam name="T">Slot Infos Type (paired with provided Slot type)</typeparam>
-    /// <typeparam name="J">Solver Job struct</typeparam>
-    /// <typeparam name="J">Cluster brain</typeparam>
-    public abstract class AbstractConstraintsSolverProcessor<S, T, J, B> : Processor<J>, IConstraintsSolverProcessor<S, T, B>
-        where S : ConstrainedSlot, ISlot
-        where T : struct, ISlotInfos<S>
-        where J : struct, IConstraintSolverJob<S, T>
-        where B : struct, IClusterBrain
+    /// <typeparam name="T_SLOT">Slot Type</typeparam>
+    /// <typeparam name="T_SLOT_INFOS">Slot Infos Type (paired with provided Slot type)</typeparam>
+    /// <typeparam name="T_JOB">Solver Job struct</typeparam>
+    /// <typeparam name="T_JOB">Cluster brain</typeparam>
+    public abstract class AbstractConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_JOB, T_BRAIN> : Processor<T_JOB>, IConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN>
+        where T_SLOT : ConstrainedSlot, ISlot
+        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
+        where T_JOB : struct, IConstraintSolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN>
+        where T_BRAIN : struct, IClusterBrain
     {
 
-        protected IClusterProvider<S, T, B> m_clusterProvider = null;
+        protected IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> m_clusterProvider = null;
         protected IConstraintsManifestProvider m_manifestProvider = null;
         protected NativeArray<int> m_results = new NativeArray<int>(0, Allocator.Persistent);
 
         public uint seed { get; set; } = 1;
-        public IClusterProvider<S, T, B> clusterProvider { get { return m_clusterProvider; } }
+        public IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> clusterProvider { get { return m_clusterProvider; } }
         public IConstraintsManifestProvider manifestProvider { get { return m_manifestProvider; } }
         public NativeArray<int> results { get { return m_results; } }
 
@@ -71,7 +71,7 @@ namespace Nebukam.Chemistry
 
         }
 
-        protected override void Prepare(ref J job, float delta)
+        protected override void Prepare(ref T_JOB job, float delta)
         {
 
             if (!TryGetFirstInGroup(out m_clusterProvider, true) ||
@@ -109,7 +109,7 @@ namespace Nebukam.Chemistry
 
         }
 
-        protected override void Apply(ref J job)
+        protected override void Apply(ref T_JOB job)
         {
 
         }
