@@ -21,6 +21,7 @@ namespace Nebukam.Chemistry.Ed
 
         [Header("Data Settings")]
         public string manifestID = "unamed slot cluster";
+        public bool ignoreNullSockets = false;
 
     }
 

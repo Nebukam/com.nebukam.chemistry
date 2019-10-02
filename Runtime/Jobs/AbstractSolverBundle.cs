@@ -14,9 +14,9 @@ namespace Nebukam.Chemistry
     public class AbstractSolverBundle<T_SLOT, T_SLOT_INFOS, T_JOB, T_BRAIN, T_SOLVER> : ProcessorChain
         where T_SLOT : ConstrainedSlot, ISlot
         where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
-        where T_JOB : struct, IConstraintSolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN>
+        where T_JOB : struct, ISolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN>
         where T_BRAIN : struct, IClusterBrain
-        where T_SOLVER : AbstractConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_JOB, T_BRAIN>, new()
+        where T_SOLVER : AbstractSolverProcessor<T_SLOT, T_SLOT_INFOS, T_JOB, T_BRAIN>, new()
     {
 
         public uint seed {
@@ -39,7 +39,7 @@ namespace Nebukam.Chemistry
         protected SolverPreparation<T_SLOT, T_SLOT_INFOS, T_BRAIN> m_preparation;
 
         protected T_SOLVER m_constraintSolver;
-        public IConstraintsSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN> constraintSolver { get { return m_constraintSolver; } }
+        public ISolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN> constraintSolver { get { return m_constraintSolver; } }
 
         public AbstractSolverBundle()
         {

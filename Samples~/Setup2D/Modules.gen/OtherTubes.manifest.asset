@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5ab2b2236a2d741b2b91917a43330f, type: 3}
+  m_Name: OtherTubes.manifest
+  m_EditorClassIdentifier: 
+  model: {fileID: 11400000, guid: 00f5435c560df884a8ac75bb322ab7f7, type: 2}
+  infos:
+  - {fileID: 11400000, guid: f84726086fbd3b54a9e77cc5ca5846b9, type: 2}
+  - {fileID: 11400000, guid: 128dde5ad491d9040bcf9d374a533777, type: 2}
+  - {fileID: 11400000, guid: 5165b82f8473589459691c04f6543cea, type: 2}
+  - {fileID: 11400000, guid: 9b31ee7aa8e49f04287b92139ecc7089, type: 2}
+  - {fileID: 11400000, guid: 90995a917cfa2ce48879dab34227c7cd, type: 2}
+  - {fileID: 11400000, guid: 5f8d15d880eae4640b85967ca475db92, type: 2}
+  - {fileID: 11400000, guid: 6dc23dbd0ccfd604281e4ce6f7674f54, type: 2}
+  - {fileID: 11400000, guid: b7c305ab359384c45b70cf41030addcc, type: 2}
+  - {fileID: 11400000, guid: eacdb62ce972a0648b766c84def8bc80, type: 2}
+  - {fileID: 11400000, guid: 7f604a02c9aa2a8499a1d3d3587ad868, type: 2}
+  inlinedManifest: {fileID: 11400000, guid: 779d4eb1f3ac0e34d9b379547c8a6765, type: 2}
+  socketCount: 4
+  headerCount: 10
+  u: 5072

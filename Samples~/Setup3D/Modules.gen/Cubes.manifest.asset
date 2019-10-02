@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5ab2b2236a2d741b2b91917a43330f, type: 3}
+  m_Name: Cubes.manifest
+  m_EditorClassIdentifier: 
+  model: {fileID: 11400000, guid: 279c9600bcd110842b73d1f68da4d3dc, type: 2}
+  infos:
+  - {fileID: 11400000, guid: 9e586d42e6e56584987dd14d6d5b7bb4, type: 2}
+  - {fileID: 11400000, guid: 06a2c8e6938894441996d93a192f85f6, type: 2}
+  - {fileID: 11400000, guid: db2fe0a66e6a4a444864b0c015a08589, type: 2}
+  - {fileID: 11400000, guid: 4479403a3f25d464e9a9967ac7ae012c, type: 2}
+  - {fileID: 11400000, guid: aaaceb0738734504ebb0ae580bee7fd1, type: 2}
+  - {fileID: 11400000, guid: c33c4227549230f448ec0f1c38201d5e, type: 2}
+  inlinedManifest: {fileID: 11400000, guid: 1621cd6010ad5e444b1dad7df1cf2a46, type: 2}
+  socketCount: 6
+  headerCount: 6
+  u: 2860

@@ -19,17 +19,29 @@ namespace Nebukam.Chemistry.Ed
             bool dirty = false;
             AtomConstraintsModel data = (AtomConstraintsModel)target;
 
-            if (data.offsets != null && data.mirrors != null
-                && data.offsets.Length != data.mirrors.Length)
+            if (data.sockets != null && data.socketMirrors != null
+                && data.sockets.Length != data.socketMirrors.Length)
             {
                 EditorGUILayout.HelpBox("Offsets & Mirrors must have the same length.", MessageType.Error);
             }
 
             DrawDefaultInspector();
 
-            if (GUILayout.Button("Set defaults indices"))
+            if (GUILayout.Button("N x 0.5"))
             {
-                SetDefaultOffsets(data);
+                SetCrossSockets(data);
+                dirty = true;
+            }
+
+            if (GUILayout.Button("N x 1"))
+            {
+                SetN1Offsets(data);
+                dirty = true;
+            }
+
+            if (GUILayout.Button("N x 2"))
+            {
+                SetN2Offsets(data);
                 dirty = true;
             }
 
@@ -52,35 +64,64 @@ namespace Nebukam.Chemistry.Ed
 
         }
 
-        protected void SetDefaultOffsets(AtomConstraintsModel data)
+        #region Socket definitions
+        
+        protected void SetCrossSockets(AtomConstraintsModel data)
         {
-
             int3[] offsets = new int3[6];
 
             for (int i = 0; i < 6; i++)
                 offsets[i] = Sockets.OFFSETS[i];
 
-            data.offsets = offsets;
+            data.sockets = offsets;
+            MirrorBaseOffset(data);
+        }
+
+        protected void SetN1Offsets(AtomConstraintsModel data)
+        {
+
+            int3[] offsets = new int3[26];
+            int i = 0;
+            for(int x = -1; x < 2; x++)
+            {
+                for (int y = -1; y < 2; y++)
+                {
+                    for (int z = -1; z < 2; z++)
+                    {
+                        if(x == 0 && y == 0 && z == 0) { continue; }
+                        offsets[i++] = int3(x, y, z);
+                    }
+                }
+            }
+
+            data.sockets = offsets;
             MirrorBaseOffset(data);
 
         }
 
+        protected void SetN2Offsets(AtomConstraintsModel data)
+        {
+            SetN1Offsets(data);
+        }
+
+        #endregion
+
         protected void MirrorBaseOffset(AtomConstraintsModel data)
         {
-            int3[] offsets = data.offsets;
-            int3[] mirrors = new int3[data.offsets.Length];
+            int3[] offsets = data.sockets;
+            int3[] mirrors = new int3[data.sockets.Length];
             
             for (int i = 0; i < mirrors.Length; i++)
                 mirrors[i] = offsets[i] * -1;
 
-            data.mirrors = mirrors;
+            data.socketMirrors = mirrors;
             ComputeMirrorIndices(data);
         }
 
         protected void ComputeMirrorIndices(AtomConstraintsModel data)
         {
-            int3[] offsets = data.offsets;
-            int3[] mirrors = data.mirrors;
+            int3[] offsets = data.sockets;
+            int3[] mirrors = data.socketMirrors;
 
             if(offsets.Length != mirrors.Length)
             {
@@ -100,7 +141,7 @@ namespace Nebukam.Chemistry.Ed
                 indices[i] = index;
             }
 
-            data.mirrorsIndices = indices;
+            data.socketMirrorIndices = indices;
 
         }
         

@@ -9,9 +9,9 @@ namespace Nebukam.Chemistry
     public class AtomConstraintsModel : SlotModelData
     {
         [Header("Neighbor config")]
-        public int3[] offsets;
-        public int3[] mirrors;
-        public int[] mirrorsIndices;
+        public int3[] sockets;
+        public int3[] socketMirrors;
+        public int[] socketMirrorIndices;
     }
 
 }

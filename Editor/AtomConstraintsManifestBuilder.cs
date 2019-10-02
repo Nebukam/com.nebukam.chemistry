@@ -35,8 +35,8 @@ namespace Nebukam.Chemistry.Ed
             Reset();
 
             slotModel = slotData;
-            offsets = slotModel.offsets;
-            mirrors = slotModel.mirrors;
+            offsets = slotModel.sockets;
+            mirrors = slotModel.socketMirrors;
 
             socketCount = offsets.Length;
 
@@ -135,7 +135,9 @@ namespace Nebukam.Chemistry.Ed
                         if(!Contains(bnd, ccoords + off))
                         {
                             // If coordinate falls outside, fill neighbor slot with null reference
-                            builder.Add(o, null);
+                            if(!group.ignoreNullSockets)
+                                builder.Add(o, null);
+
                             continue;
                         }
                         

@@ -53,7 +53,7 @@ namespace Nebukam.Chemistry
             #region model infos
 
             AtomConstraintsModel model = m_manifest.model;
-            int modelLength = model.offsets.Length;
+            int modelLength = model.sockets.Length;
 
             if (m_offsets.Length != modelLength)
             {
@@ -68,9 +68,9 @@ namespace Nebukam.Chemistry
 
             for(int i = 0; i < modelLength; i++)
             {
-                m_offsets[i] = model.offsets[i];
-                m_mirrors[i] = model.mirrors[i];
-                m_mirrorsIndices[i] = model.mirrorsIndices[i];
+                m_offsets[i] = model.sockets[i];
+                m_mirrors[i] = model.socketMirrors[i];
+                m_mirrorsIndices[i] = model.socketMirrorIndices[i];
             }
 
             #endregion

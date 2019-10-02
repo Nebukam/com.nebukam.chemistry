@@ -40,7 +40,7 @@ namespace Nebukam.Chemistry.Ed
             List<int> 
                 positions = m_neighbors.keyList,
                 indices = new List<int>();
-            int iCount = model.offsets.Length;
+            int iCount = model.sockets.Length;
 
             int[] 
                 begin = new int[iCount],
@@ -62,7 +62,7 @@ namespace Nebukam.Chemistry.Ed
                 {
                     builder = builders[b];
                     if(builder == null)
-                        indices.Add(Content.NULL);
+                        indices.Add(SlotContent.NULL);
                     else
                         indices.Add(builder.m_index);
 
