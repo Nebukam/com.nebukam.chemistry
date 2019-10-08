@@ -1,7 +1,28 @@
-﻿using Unity.Jobs;
-using Unity.Collections;
-using Unity.Mathematics;
+﻿// Copyright (c) 2019 Timothé Lapetite - nebukam@gmail.com.
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+
 using Nebukam.Cluster;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 
 namespace Nebukam.Chemistry
 {
@@ -20,7 +41,7 @@ namespace Nebukam.Chemistry
 
         // Cluster infos
         T_BRAIN brain { set; }
-        NativeArray<T_SLOT_INFOS> inputSlotInfos { set;}
+        NativeArray<T_SLOT_INFOS> inputSlotInfos { set; }
         NativeHashMap<ByteTrio, int> inputSlotCoordinateMap { set; }
 
         // Model infos
@@ -31,9 +52,15 @@ namespace Nebukam.Chemistry
 
         // Manifest infos
         int headerCount { set; }
+        NativeArray<float> headerWeights { set; }
         NativeArray<int3> headerIndices { set; }
         NativeArray<int> neighbors { set; }
         NativeArray<int> results { set; }
+        NativeArray<float> debug { set; }
+
+        // Lookup
+        NativeHashMap<IntPair, bool> nullPairLookup { set; }
+
 
     }
 }

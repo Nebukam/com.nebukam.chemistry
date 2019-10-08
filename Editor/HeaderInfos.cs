@@ -19,22 +19,23 @@
 // SOFTWARE.
 
 #if UNITY_EDITOR
-using Nebukam.Cluster;
 using UnityEngine;
 
 namespace Nebukam.Chemistry.Ed
 {
 
-    [AddComponentMenu("Nebukam/Chemistry/Simple Grid Tester")]
-    [DisallowMultipleComponent]
-    public class SimpleGridTester : SlotGrid
+    /// <summary>
+    /// A module template store core configuration used to solve & collapse a WFC grid.
+    /// It is also used to generate and extract module grid models.
+    /// </summary>
+    [AddComponentMenu("Nebukam/Chemistry/Header Infos")]
+    public class HeaderInfos : MonoBehaviour
     {
 
-        public AtomConstraintsManifest manifest;
-        public ISlotCluster<ConstrainedSlot, ClusterBrain> cluster = new SlotClusterFixed<ConstrainedSlot, ClusterBrain>();
-        public SimpleSolver<ConstrainedSlot, ConstrainedSlotInfos, ClusterBrain> solver;
-        public GameObject nullPrefab;
+        [Header("Header Settings")]
+        public float weight = 1f;
 
     }
+
 }
 #endif

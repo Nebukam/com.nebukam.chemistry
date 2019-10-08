@@ -41,6 +41,7 @@ namespace Nebukam.Chemistry
         IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> clusterProvider { get; }
         IConstraintsManifestProvider manifestProvider { get; }
         NativeArray<int> results { get; }
+        NativeArray<float> debug { get; }
     }
 
     /// <summary>
@@ -60,11 +61,13 @@ namespace Nebukam.Chemistry
         protected IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> m_clusterProvider = null;
         protected IConstraintsManifestProvider m_manifestProvider = null;
         protected NativeArray<int> m_results = new NativeArray<int>(0, Allocator.Persistent);
+        protected NativeArray<float> m_debug = new NativeArray<float>(0, Allocator.Persistent);
 
         public uint seed { get; set; } = 1;
         public IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> clusterProvider { get { return m_clusterProvider; } }
         public IConstraintsManifestProvider manifestProvider { get { return m_manifestProvider; } }
         public NativeArray<int> results { get { return m_results; } }
+        public NativeArray<float> debug { get { return m_debug; } }
 
         protected override void InternalLock()
         {
@@ -91,14 +94,20 @@ namespace Nebukam.Chemistry
             job.mirrorsIndices = m_manifestProvider.mirrorsIndices;
 
             job.headerCount = m_manifestProvider.manifest.headerCount;
+            job.headerWeights = m_manifestProvider.headerWeights;
             job.headerIndices = m_manifestProvider.headerIndices;
             job.neighbors = m_manifestProvider.neighbors;
 
+            job.nullPairLookup = m_manifestProvider.nullPairLookup;
+            
             int count = m_clusterProvider.outputSlotInfos.Length;
             if (m_results.Length != count)
             {
                 m_results.Dispose();
                 m_results = new NativeArray<int>(count, Allocator.Persistent);
+
+                m_debug.Dispose();
+                m_debug = new NativeArray<float>(count, Allocator.Persistent);
             }
 
             // This is where pre-defined constraints should be set.
@@ -106,7 +115,7 @@ namespace Nebukam.Chemistry
                 m_results[i] = SlotContent.UNSET;
 
             job.results = m_results;
-
+            job.debug = m_debug;
         }
 
         protected override void Apply(ref T_JOB job)

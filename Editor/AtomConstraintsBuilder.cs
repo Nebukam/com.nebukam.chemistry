@@ -1,8 +1,26 @@
-﻿using System.Collections.Generic;
-using Nebukam;
+﻿// Copyright (c) 2019 Timothé Lapetite - nebukam@gmail.com.
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 using Nebukam.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 namespace Nebukam.Chemistry.Ed
 {
@@ -12,13 +30,13 @@ namespace Nebukam.Chemistry.Ed
         protected internal AtomConstraints m_data;
 
         protected internal int m_index;
+        protected internal float m_weight = 1f;
         protected internal GameObject m_prefab = null;
-        protected internal int m_instanceCount = 0;
         protected internal ListDictionary<int, AtomConstraintsBuilder> m_neighbors = new ListDictionary<int, AtomConstraintsBuilder>();
-        
+
         public void Add(int side, AtomConstraintsBuilder infos)
         {
-            if(m_neighbors.Contains(side, infos))
+            if (m_neighbors.Contains(side, infos))
             {
                 //TODO : Should we keep track of neighboring count of a given prefab, 
                 //it should be there.
@@ -29,25 +47,25 @@ namespace Nebukam.Chemistry.Ed
             }
         }
 
-        public AtomConstraints FixData( AtomConstraintsModel model )
+        public AtomConstraints FixData(AtomConstraintsModel model)
         {
 
             m_data.index = m_index;
             m_data.prefab = m_prefab;
-            m_data.instanceCount = m_instanceCount;
+            m_data.weight = m_weight;
 
             AtomConstraintsBuilder builder;
-            List<int> 
+            List<int>
                 positions = m_neighbors.keyList,
                 indices = new List<int>();
             int iCount = model.sockets.Length;
 
-            int[] 
+            int[]
                 begin = new int[iCount],
                 lengths = new int[iCount];
             int count, index = 0;
 
-            for(int i = 0; i < iCount; i++)
+            for (int i = 0; i < iCount; i++)
             {
 
                 if (m_neighbors.TryGet(i, out List<AtomConstraintsBuilder> builders))
@@ -61,7 +79,7 @@ namespace Nebukam.Chemistry.Ed
                 for (int b = 0; b < count; b++)
                 {
                     builder = builders[b];
-                    if(builder == null)
+                    if (builder == null)
                         indices.Add(SlotContent.NULL);
                     else
                         indices.Add(builder.m_index);
@@ -87,7 +105,7 @@ namespace Nebukam.Chemistry.Ed
         {
             m_data = null;
             m_prefab = null;
-            m_instanceCount = 0;
+            m_weight = 1f;
             m_neighbors.Clear();
         }
 

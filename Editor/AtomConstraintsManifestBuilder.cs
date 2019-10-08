@@ -1,11 +1,30 @@
-﻿using Nebukam.Collections;
-using Nebukam.Cluster;
+﻿// Copyright (c) 2019 Timothé Lapetite - nebukam@gmail.com.
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+using Nebukam.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Unity.Mathematics;
 using static Unity.Mathematics.math;
 
 namespace Nebukam.Chemistry.Ed
@@ -54,9 +73,10 @@ namespace Nebukam.Chemistry.Ed
             int3 off, bnd;
 
             AtomConstraintsBuilder builder;
+            HeaderInfos infosComponent;
 
             int childCount;
-            
+
             for (int g = 0, count = groupComponents.Length; g < count; g++)
             {
 
@@ -86,6 +106,8 @@ namespace Nebukam.Chemistry.Ed
 
                     ctr = gtr.GetChild(i);
                     cgo = ctr.gameObject;
+                    infosComponent = cgo.GetComponent<HeaderInfos>();
+
                     prefab = PrefabUtility.GetCorrespondingObjectFromSource<GameObject>(cgo);
 
                     if (prefab == null)
@@ -97,7 +119,7 @@ namespace Nebukam.Chemistry.Ed
                         continue;
                     }
 
-                    if(!m_builderMap.TryGetValue(prefab, out builder))
+                    if (!m_builderMap.TryGetValue(prefab, out builder))
                     {
 
                         builder = Pooling.Pool.Rent<AtomConstraintsBuilder>();
@@ -110,13 +132,14 @@ namespace Nebukam.Chemistry.Ed
 
                     }
 
+                    if (infosComponent != null)
+                        builder.m_weight = infosComponent.weight;
+
                     m_childs.Add(cgo);
                     m_childsMap[cgo] = prefab;
                     m_coordMap[cgo] = ccoords;
 
                     m_slots.Add(ccoords, cgo);
-
-                    builder.m_instanceCount += 1;
 
                 }
 
@@ -128,21 +151,21 @@ namespace Nebukam.Chemistry.Ed
                     ccoords = m_coordMap[cgo];
                     builder = m_builderMap[m_childsMap[cgo]];
 
-                    for(int o = 0; o < socketCount; o++)
+                    for (int o = 0; o < socketCount; o++)
                     {
                         off = offsets[o];
 
-                        if(!Contains(bnd, ccoords + off))
+                        if (!Contains(bnd, ccoords + off))
                         {
                             // If coordinate falls outside, fill neighbor slot with null reference
-                            if(!group.ignoreNullSockets)
+                            if (!group.ignoreNullSockets)
                                 builder.Add(o, null);
 
                             continue;
                         }
-                        
+
                         ocoords = ccoords + offsets[o];
-                        
+
                         if (!m_slots.TryGet(ocoords, out List<GameObject> list))
                             continue;
 
@@ -163,7 +186,7 @@ namespace Nebukam.Chemistry.Ed
 
             #region Clean up
 
-            for(int i = 0, count = m_builders.Count; i < count; i++)
+            for (int i = 0, count = m_builders.Count; i < count; i++)
                 m_builders[i].Release();
 
             m_builders.Clear();
@@ -226,6 +249,7 @@ namespace Nebukam.Chemistry.Ed
 
             AtomConstraintsManifestInlined manifestInlined = ScriptableObject.CreateInstance<AtomConstraintsManifestInlined>();
             int3[] headerIndices = new int3[headerLength];
+            float[] headerWeights = new float[headerCount];
             int[]
                 neighbors = new int[totalNeighborsLength],
                 ns;
@@ -239,6 +263,8 @@ namespace Nebukam.Chemistry.Ed
                 info = infos[i];
                 ns = info.neighbors;
                 nCount = ns.Length;
+
+                headerWeights[i] = info.weight;
 
                 for (int j = 0; j < socketCount; j++)
                 {
@@ -254,6 +280,7 @@ namespace Nebukam.Chemistry.Ed
             }
 
             manifestInlined.headerCount = headerCount;
+            manifestInlined.headerWeights = headerWeights;
             manifestInlined.headerLength = headerLength;
             manifestInlined.headerIndices = headerIndices;
             manifestInlined.neighbors = neighbors;
@@ -269,11 +296,11 @@ namespace Nebukam.Chemistry.Ed
 
             EditorUtility.SetDirty(manifestInlined);
             EditorUtility.SetDirty(manifest);
-            
+
 
 
         }
-        
+
         private bool Contains(int3 bounds, int3 pt)
         {
             if (pt.x < 0 || pt.x >= bounds.x)

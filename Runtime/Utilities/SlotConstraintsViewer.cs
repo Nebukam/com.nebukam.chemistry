@@ -18,9 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using Nebukam.Cluster;
 using Unity.Mathematics;
 using UnityEngine;
-using Nebukam.Cluster;
 
 namespace Nebukam.Chemistry
 {
@@ -41,9 +41,9 @@ namespace Nebukam.Chemistry
             if (!draw || model == null)
                 return;
 
-            int3[] neighbors = model.sockets;
-            float3 
-                pos, 
+            int3[] sockets = model.sockets;
+            float3
+                pos,
                 tr = transform.position,
                 s = baseModel.size;
 
@@ -58,12 +58,14 @@ namespace Nebukam.Chemistry
 
             // Draw neighbors
 
-            for (int i = 0, count = neighbors.Length; i < count; i++)
+            for (int i = 0, count = sockets.Length; i < count; i++)
             {
-                pos = tr + (s * neighbors[i] );
+                pos = tr + (s * sockets[i]);
+
+                Gizmos.color = model.socketColors[i];
 
                 if (wire)
-                    Gizmos.DrawWireCube(pos, s*.5f);
+                    Gizmos.DrawWireCube(pos, s * .5f);
                 else
                     Gizmos.DrawCube(pos, s * .5f);
             }

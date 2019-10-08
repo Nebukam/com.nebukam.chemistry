@@ -18,23 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#if UNITY_EDITOR
-using Nebukam.Cluster;
-using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Nebukam.Chemistry.Ed
+namespace Nebukam.Chemistry
 {
-
-    [AddComponentMenu("Nebukam/Chemistry/Simple Grid Tester")]
-    [DisallowMultipleComponent]
-    public class SimpleGridTester : SlotGrid
+    public struct PatternReplacementJob
     {
-
-        public AtomConstraintsManifest manifest;
-        public ISlotCluster<ConstrainedSlot, ClusterBrain> cluster = new SlotClusterFixed<ConstrainedSlot, ClusterBrain>();
-        public SimpleSolver<ConstrainedSlot, ConstrainedSlotInfos, ClusterBrain> solver;
-        public GameObject nullPrefab;
-
     }
 }
-#endif
