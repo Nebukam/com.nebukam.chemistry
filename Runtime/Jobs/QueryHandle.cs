@@ -243,9 +243,16 @@ namespace Nebukam.Chemistry
             {
 
                 if (m_inputSlotCoordinateMap.TryGetValue(coord + m_socketOffsets[s], out _s))
+                {
                     _s = m_results[_s];
+
+                    if (_s == SlotContent.UNSET || _s == SlotContent.UNSOLVABLE)
+                        continue;
+                }
                 else
+                {
                     _s = SlotContent.NULL;
+                }
 
                 socketIndices.Add(s);
                 socketContents.Add(_s);
