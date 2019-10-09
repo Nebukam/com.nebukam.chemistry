@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb824f9755df7a24a8e4c945f84128a9, type: 3}
+  m_Name: TubeModel_B
+  m_EditorClassIdentifier: 
+  slotSize:
+    x: 1
+    y: 1
+    z: 1
+  slotAnchor:
+    x: 0
+    y: 0
+    z: 0
+  socketsOffsets:
+  - x: 0
+    y: 0
+    z: 1
+  - x: 0
+    y: 0
+    z: -1
+  - x: -1
+    y: 0
+    z: 0
+  - x: 1
+    y: 0
+    z: 0
+  - x: 0
+    y: -1
+    z: 0
+  - x: 0
+    y: 1
+    z: 0
+  socketsMirrors:
+  - x: 0
+    y: 0
+    z: -1
+  - x: 0
+    y: 0
+    z: 1
+  - x: 1
+    y: 0
+    z: 0
+  - x: -1
+    y: 0
+    z: 0
+  - x: 0
+    y: 1
+    z: 0
+  - x: 0
+    y: -1
+    z: 0
+  socketMirrorIndices: 010000000000000003000000020000000500000004000000
+  socketColors:
+  - {r: 0.45010394, g: 0.67089456, b: 0.3722526, a: 1}
+  - {r: 0.7644037, g: 0.21952656, b: 0.44171256, a: 1}
+  - {r: 0.2732518, g: 0.27091065, b: 0.8277947, a: 1}
+  - {r: 0.42854625, g: 0.2938651, b: 0.6010453, a: 1}
+  - {r: 0.8140466, g: 0.256794, b: 0.26481035, a: 1}
+  - {r: 0.39693648, g: 0.33562484, b: 0.93307436, a: 1}

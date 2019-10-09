@@ -46,15 +46,15 @@ namespace Nebukam.Chemistry
 
         // Model infos
         int socketCount { set; }
-        NativeArray<int3> offsets { set; }
-        NativeArray<int3> mirrors { set; }
-        NativeArray<int> mirrorsIndices { set; }
+        NativeArray<int3> socketsOffsets { set; }
+        NativeArray<int3> socketsMirrors { set; }
+        NativeArray<int> socketsMirrorsIndices { set; }
 
         // Manifest infos
-        int headerCount { set; }
-        NativeArray<float> headerWeights { set; }
-        NativeArray<int3> headerIndices { set; }
-        NativeArray<int> neighbors { set; }
+        int moduleCount { set; }
+        NativeArray<float> modulesWeights { set; }
+        NativeArray<int3> modulesHeaders { set; }
+        NativeArray<int> modulesNeighbors { set; }
         NativeArray<int> results { set; }
         NativeArray<float> debug { set; }
 

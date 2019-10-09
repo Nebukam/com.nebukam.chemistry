@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2369355a82928a7479d544b52a061f93, type: 3}
+  m_Name: 4.MOD.Ground
+  m_EditorClassIdentifier: 
+  index: 4
+  weight: 1
+  prefab: {fileID: 3440294406414095110, guid: e2b7da20353fa1b4791ac5cc2bbdc980, type: 3}
+  manifest: {fileID: 0}
+  begin: 0000000004000000080000000c0000001000000012000000
+  lengths: 040000000400000004000000040000000200000004000000
+  neighbors: 04000000020000000100000005000000040000000200000001000000050000000400000002000000010000000500000004000000020000000100000005000000feffffff0400000001000000040000000000000005000000

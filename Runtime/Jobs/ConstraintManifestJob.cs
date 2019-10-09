@@ -39,11 +39,11 @@ namespace Nebukam.Chemistry
 
         // Manifest infos
         [ReadOnly]
-        public int m_headerCount;
+        public int m_moduleCount;
         [ReadOnly]
-        public NativeArray<int3> m_headerIndices;
+        public NativeArray<int3> m_modulesHeaders;
         [ReadOnly]
-        public NativeArray<int> m_neighbors;
+        public NativeArray<int> m_modulesNeighbors;
 
         public NativeHashMap<IntPair, bool> m_nullPairLookup;
         //public NativeList<int> m_nonNullHeaders;
@@ -58,7 +58,7 @@ namespace Nebukam.Chemistry
             bool _n = true;
 
             // For each header...
-            for(int headerIndex = 0; headerIndex < m_headerCount; headerIndex++)
+            for(int headerIndex = 0; headerIndex < m_moduleCount; headerIndex++)
             {
 
                 _h = headerIndex * m_socketCount;
@@ -68,10 +68,10 @@ namespace Nebukam.Chemistry
                 for (int socketIndex = 0; socketIndex < m_socketCount; socketIndex++)
                 {
 
-                    header = m_headerIndices[_h + socketIndex];
+                    header = m_modulesHeaders[_h + socketIndex];
 
                     // header : socket @ true
-                    if (header.z == 1 && m_neighbors[header.x] == SlotContent.NULL)
+                    if (header.z == 1 && m_modulesNeighbors[header.x] == SlotContent.NULL)
                     {
                         m_nullPairLookup.TryAdd(new IntPair(headerIndex, socketIndex), true);
                         _n = true;

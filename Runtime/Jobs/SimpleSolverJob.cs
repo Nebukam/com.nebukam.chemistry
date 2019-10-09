@@ -51,21 +51,21 @@ namespace Nebukam.Chemistry
         [ReadOnly]
         public int m_socketCount;
         [ReadOnly]
-        public NativeArray<int3> m_offsets;
+        public NativeArray<int3> m_socketOffsets;
         [ReadOnly]
-        public NativeArray<int3> m_mirrors;
+        public NativeArray<int3> m_socketsMirrors;
         [ReadOnly]
-        public NativeArray<int> m_mirrorsIndices;
+        public NativeArray<int> m_socketsMirrorsIndices;
 
         // Manifest infos
         [ReadOnly]
-        public int m_headerCount;
+        public int m_moduleCount;
         [ReadOnly]
-        public NativeArray<float> m_headerWeights;
+        public NativeArray<float> m_modulesWeights;
         [ReadOnly]
-        public NativeArray<int3> m_headerIndices;
+        public NativeArray<int3> m_modulesHeaders;
         [ReadOnly]
-        public NativeArray<int> m_neighbors;
+        public NativeArray<int> m_modulesNeighbors;
 
         // Lookups
         [ReadOnly]
@@ -81,15 +81,15 @@ namespace Nebukam.Chemistry
 
         // Model infos
         public int socketCount { set { m_socketCount = value; } }
-        public NativeArray<int3> offsets { set { m_offsets = value; } }
-        public NativeArray<int3> mirrors { set { m_mirrors = value; } }
-        public NativeArray<int> mirrorsIndices { set { m_mirrorsIndices = value; } }
+        public NativeArray<int3> socketsOffsets { set { m_socketOffsets = value; } }
+        public NativeArray<int3> socketsMirrors { set { m_socketsMirrors = value; } }
+        public NativeArray<int> socketsMirrorsIndices { set { m_socketsMirrorsIndices = value; } }
 
         // Manifest infos
-        public int headerCount { set { m_headerCount = value; } }
-        public NativeArray<float> headerWeights { set { m_headerWeights = value; } }
-        public NativeArray<int3> headerIndices { set { m_headerIndices = value; } }
-        public NativeArray<int> neighbors { set { m_neighbors = value; } }
+        public int moduleCount { set { m_moduleCount = value; } }
+        public NativeArray<float> modulesWeights { set { m_modulesWeights = value; } }
+        public NativeArray<int3> modulesHeaders { set { m_modulesHeaders = value; } }
+        public NativeArray<int> modulesNeighbors { set { m_modulesNeighbors = value; } }
         public NativeArray<int> results { set { m_results = value; } }
 
         // Lookups
@@ -112,13 +112,13 @@ namespace Nebukam.Chemistry
                     m_inputSlotInfos = m_inputSlotInfos,
                     m_inputSlotCoordinateMap = m_inputSlotCoordinateMap,
                     m_socketCount = m_socketCount,
-                    m_offsets = m_offsets,
-                    m_mirrors = m_mirrors,
-                    m_mirrorsIndices = m_mirrorsIndices,
-                    m_headerCount = m_headerCount,
-                    m_headerWeights = m_headerWeights,
-                    m_headerIndices = m_headerIndices,
-                    m_neighbors = m_neighbors,
+                    m_socketOffsets = m_socketOffsets,
+                    m_socketsMirrors = m_socketsMirrors,
+                    m_socketsMirrorsIndices = m_socketsMirrorsIndices,
+                    m_headerCount = m_moduleCount,
+                    m_modulesWeights = m_modulesWeights,
+                    m_modulesHeaders = m_modulesHeaders,
+                    m_modulesNeighbors = m_modulesNeighbors,
                     m_results = m_results,
                     m_nullPairLookup = m_nullPairLookup
                 };
@@ -128,15 +128,15 @@ namespace Nebukam.Chemistry
             NativeList<int>
                 socketIndices = new NativeList<int>(m_socketCount, Allocator.Temp),
                 socketContent = new NativeList<int>(m_socketCount, Allocator.Temp),
-                candidates = new NativeList<int>(m_neighbors.Length, Allocator.Temp),
+                candidates = new NativeList<int>(m_modulesNeighbors.Length, Allocator.Temp),
                 unsolvables = new NativeList<int>(10, Allocator.Temp);
 
             NativeList<float>
-                weights = new NativeList<float>(m_headerCount, Allocator.Temp);
+                weights = new NativeList<float>(m_moduleCount, Allocator.Temp);
 
             int
                 sCount = m_inputSlotInfos.Length,
-                nCount = m_neighbors.Length,
+                nCount = m_modulesNeighbors.Length,
                 cCount,
                 result;
 
@@ -147,11 +147,11 @@ namespace Nebukam.Chemistry
                     continue;
 
                 if (Q.TryGetCandidates(
-                    slotIndex, 
-                    ref socketIndices, 
-                    ref socketContent, 
-                    ref candidates, 
-                    ref weights, 
+                    slotIndex,
+                    ref socketIndices,
+                    ref socketContent,
+                    ref candidates,
+                    ref weights,
                     out cCount))
                 {
                     //result = candidates[NextInt(ref cCount)];
@@ -177,11 +177,11 @@ namespace Nebukam.Chemistry
                     index = unsolvables[u];
 
                     if (Q.TryGetCandidates(
-                        index, 
-                        ref socketIndices, 
-                        ref socketContent, 
-                        ref candidates, 
-                        ref weights, 
+                        index,
+                        ref socketIndices,
+                        ref socketContent,
+                        ref candidates,
+                        ref weights,
                         out cCount))
                         result = candidates[NextInt(ref cCount)];
                     else

@@ -211,8 +211,66 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1450888866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450888868}
+  - component: {fileID: 1450888867}
+  m_Layer: 0
+  m_Name: Lowest Antropy Solver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1450888867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450888866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751081bad08b3cd4ab875affb8265a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotModel: {fileID: 11400000, guid: 279c9600bcd110842b73d1f68da4d3dc, type: 2}
+  gridSize:
+    x: 10
+    y: 10
+    z: 10
+  color: {r: 1, g: 0, b: 0.29948568, a: 0.078431375}
+  radius: 0.2
+  wireOnly: 0
+  noDebug: 1
+  manifest: {fileID: 11400000, guid: 8841472f249e452488c11e618159f451, type: 2}
+  nullPrefab: {fileID: 3440294406414095110, guid: bdd039548c98c4542824014dfb522f5b,
+    type: 3}
+  unsolvablePrefab: {fileID: 3440294406414095110, guid: b9e72505dce7ea84fa7468fa2aac9569,
+    type: 3}
+  applyRandomRotation: 1
+--- !u!4 &1450888868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450888866}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1503575790
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +365,7 @@ GameObject:
   - component: {fileID: 1931516946}
   - component: {fileID: 1931516945}
   m_Layer: 0
-  m_Name: Cluster
+  m_Name: Simple Solver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,15 +386,18 @@ MonoBehaviour:
   slotModel: {fileID: 11400000, guid: 279c9600bcd110842b73d1f68da4d3dc, type: 2}
   gridSize:
     x: 10
-    y: 20
+    y: 10
     z: 10
-  color: {r: 0, g: 0, b: 1, a: 1}
+  color: {r: 0, g: 0, b: 1, a: 0.011764706}
   radius: 0.2
   wireOnly: 0
   noDebug: 1
   manifest: {fileID: 11400000, guid: 8841472f249e452488c11e618159f451, type: 2}
   nullPrefab: {fileID: 3440294406414095110, guid: bdd039548c98c4542824014dfb522f5b,
     type: 3}
+  unsolvablePrefab: {fileID: 3440294406414095110, guid: b9e72505dce7ea84fa7468fa2aac9569,
+    type: 3}
+  applyRandomRotation: 1
 --- !u!4 &1931516946
 Transform:
   m_ObjectHideFlags: 0
@@ -349,5 +410,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

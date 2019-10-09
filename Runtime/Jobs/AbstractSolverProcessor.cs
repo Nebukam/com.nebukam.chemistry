@@ -89,14 +89,14 @@ namespace Nebukam.Chemistry
             job.inputSlotCoordinateMap = m_clusterProvider.outputSlotCoordinateMap;
 
             job.socketCount = m_manifestProvider.manifest.socketCount;
-            job.offsets = m_manifestProvider.offsets;
-            job.mirrors = m_manifestProvider.mirrors;
-            job.mirrorsIndices = m_manifestProvider.mirrorsIndices;
+            job.socketsOffsets = m_manifestProvider.socketsOffsets;
+            job.socketsMirrors = m_manifestProvider.socketsMirrors;
+            job.socketsMirrorsIndices = m_manifestProvider.socketsMirrorsIndices;
 
-            job.headerCount = m_manifestProvider.manifest.headerCount;
-            job.headerWeights = m_manifestProvider.headerWeights;
-            job.headerIndices = m_manifestProvider.headerIndices;
-            job.neighbors = m_manifestProvider.neighbors;
+            job.moduleCount = m_manifestProvider.manifest.moduleCount;
+            job.modulesWeights = m_manifestProvider.modulesWeights;
+            job.modulesHeaders = m_manifestProvider.modulesHeaders;
+            job.modulesNeighbors = m_manifestProvider.modulesNeighbors;
 
             job.nullPairLookup = m_manifestProvider.nullPairLookup;
             

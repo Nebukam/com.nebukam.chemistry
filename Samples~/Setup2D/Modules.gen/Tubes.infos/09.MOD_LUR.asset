@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2369355a82928a7479d544b52a061f93, type: 3}
+  m_Name: 09.MOD_LUR
+  m_EditorClassIdentifier: 
+  index: 9
+  weight: 1
+  prefab: {fileID: 3440294406414095110, guid: 985438707235e5548bd0ba3b44c81c3a, type: 3}
+  manifest: {fileID: 0}
+  begin: 000000000100000002000000030000000400000005000000
+  lengths: 010000000100000001000000010000000100000001000000
+  neighbors: fefffffffefffffffefffffffefffffffefffffffeffffff

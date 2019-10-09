@@ -34,7 +34,7 @@ namespace Nebukam.Chemistry
         where T_BRAIN : struct, IClusterBrain
     {
 
-        public AtomConstraintsManifest manifest
+        public ModuleConstraintsManifest manifest
         {
             get { return m_manifestProvider.manifest; }
             set { m_manifestProvider.manifest = value; }

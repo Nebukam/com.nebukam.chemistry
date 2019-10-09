@@ -47,21 +47,21 @@ namespace Nebukam.Chemistry
         [ReadOnly]
         public int m_socketCount;
         [ReadOnly]
-        public NativeArray<int3> m_offsets;
+        public NativeArray<int3> m_socketOffsets;
         [ReadOnly]
-        public NativeArray<int3> m_mirrors;
+        public NativeArray<int3> m_socketsMirrors;
         [ReadOnly]
-        public NativeArray<int> m_mirrorsIndices;
+        public NativeArray<int> m_socketsMirrorsIndices;
 
         // Manifest infos
         [ReadOnly]
         public int m_headerCount;
         [ReadOnly]
-        public NativeArray<float> m_headerWeights;
+        public NativeArray<float> m_modulesWeights;
         [ReadOnly]
-        public NativeArray<int3> m_headerIndices;
+        public NativeArray<int3> m_modulesHeaders;
         [ReadOnly]
-        public NativeArray<int> m_neighbors;
+        public NativeArray<int> m_modulesNeighbors;
 
         public NativeArray<int> m_results;
 
@@ -161,7 +161,7 @@ namespace Nebukam.Chemistry
                 if (IsSatisfactory(ref socketIndices, ref socketContents, ref h))
                 {
                     candidates.Add(h);
-                    weights.Add(m_headerWeights[h]);
+                    weights.Add(m_modulesWeights[h]);
                 }
             }
 
@@ -197,10 +197,17 @@ namespace Nebukam.Chemistry
             for (int s = 0; s < m_socketCount; s++)
             {
 
-                if (m_inputSlotCoordinateMap.TryGetValue(center + m_offsets[s], out _s))
+                if (m_inputSlotCoordinateMap.TryGetValue(center + m_socketOffsets[s], out _s))
+                {
                     _s = m_results[_s];
+
+                    if (_s == SlotContent.UNSET || _s == SlotContent.UNSOLVABLE)
+                        continue;
+                }
                 else
+                {
                     _s = SlotContent.NULL;
+                }
 
                 socketIndices.Add(s);
                 socketContents.Add(_s);
@@ -235,7 +242,7 @@ namespace Nebukam.Chemistry
             for (int s = 0; s < m_socketCount; s++)
             {
 
-                if (m_inputSlotCoordinateMap.TryGetValue(coord + m_offsets[s], out _s))
+                if (m_inputSlotCoordinateMap.TryGetValue(coord + m_socketOffsets[s], out _s))
                     _s = m_results[_s];
                 else
                     _s = SlotContent.NULL;
@@ -270,7 +277,7 @@ namespace Nebukam.Chemistry
             // Identify the content of each neighboring socket, if any
             for (int s = 0; s < m_socketCount; s++)
             {
-                if (m_inputSlotCoordinateMap.TryGetValue(center + m_offsets[s], out _s))
+                if (m_inputSlotCoordinateMap.TryGetValue(center + m_socketOffsets[s], out _s))
                 {
                     _c = m_results[_s];
                     if (_c == SlotContent.UNSET)
@@ -294,7 +301,7 @@ namespace Nebukam.Chemistry
             // Identify the content of each neighboring socket, if any
             for (int s = 0; s < m_socketCount; s++)
             {
-                if (m_inputSlotCoordinateMap.TryGetValue(center + m_offsets[s], out _s))
+                if (m_inputSlotCoordinateMap.TryGetValue(center + m_socketOffsets[s], out _s))
                 {
                     if (m_results[_s] != SlotContent.UNSET)
                         count++;
@@ -331,7 +338,7 @@ namespace Nebukam.Chemistry
             for (int s = 0; s < m_socketCount; s++)
             {
 
-                socket = coord + m_offsets[s];
+                socket = coord + m_socketOffsets[s];
 
                 if (m_inputSlotCoordinateMap.TryGetValue(socket, out _s))
                 {
@@ -353,7 +360,7 @@ namespace Nebukam.Chemistry
                     _s = SlotContent.NULL;
                 }
 
-                headerSocket = m_headerIndices[_h + s];
+                headerSocket = m_modulesHeaders[_h + s];
 
                 if (!SocketContains(ref headerSocket, ref _s))
                     return false;
@@ -397,7 +404,7 @@ namespace Nebukam.Chemistry
                     continue;
                 }
 
-                headerSocket = m_headerIndices[_h + _s];
+                headerSocket = m_modulesHeaders[_h + _s];
 
                 if (!SocketContains(ref headerSocket, ref _content))
                     return false;
@@ -418,7 +425,7 @@ namespace Nebukam.Chemistry
         {
 
             for (int i = headerSocket.x; i < headerSocket.y; i++)
-                if (m_neighbors[i] == key)
+                if (m_modulesNeighbors[i] == key)
                     return true;
 
             return false;

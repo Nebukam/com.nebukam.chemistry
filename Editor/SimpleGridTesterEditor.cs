@@ -109,7 +109,7 @@ namespace Nebukam.Chemistry.Ed
 
             int index;
             NativeArray<int> results = grid.solver.constraintSolver.results;
-            AtomConstraints atom;
+            ModuleConstraints atom;
             ISlot slot;
             GameObject go;
             ByteTrio coords;

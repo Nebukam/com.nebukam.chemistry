@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb824f9755df7a24a8e4c945f84128a9, type: 3}
+  m_Name: CubeModel_3D
+  m_EditorClassIdentifier: 
+  slotSize:
+    x: 1
+    y: 1
+    z: 1
+  slotAnchor:
+    x: 0
+    y: 0
+    z: 0
+  socketsOffsets:
+  - x: 0
+    y: 0
+    z: 1
+  - x: 0
+    y: 0
+    z: -1
+  - x: -1
+    y: 0
+    z: 0
+  - x: 1
+    y: 0
+    z: 0
+  - x: 0
+    y: -1
+    z: 0
+  - x: 0
+    y: 1
+    z: 0
+  socketsMirrors:
+  - x: 0
+    y: 0
+    z: -1
+  - x: 0
+    y: 0
+    z: 1
+  - x: 1
+    y: 0
+    z: 0
+  - x: -1
+    y: 0
+    z: 0
+  - x: 0
+    y: 1
+    z: 0
+  - x: 0
+    y: -1
+    z: 0
+  socketMirrorIndices: 010000000000000003000000020000000500000004000000
+  socketColors:
+  - {r: 0.44488126, g: 0.79870534, b: 0.59062546, a: 1}
+  - {r: 0.0652845, g: 0.8551656, b: 0.798234, a: 1}
+  - {r: 0.4867143, g: 0.9583461, b: 0.5629707, a: 1}
+  - {r: 0.60191613, g: 0.10274841, b: 0.050971396, a: 1}
+  - {r: 0.8031894, g: 0.09309114, b: 0.67646056, a: 1}
+  - {r: 0.90194106, g: 0.26519838, b: 0.37204102, a: 1}

@@ -27,10 +27,10 @@ namespace Nebukam.Chemistry.Ed
 
     [AddComponentMenu("Nebukam/Chemistry/Simple Grid Tester")]
     [DisallowMultipleComponent]
-    public class SimpleGridTester : SlotGrid
+    public class SimpleGridTester : ModuleClusterBehaviour
     {
 
-        public AtomConstraintsManifest manifest;
+        public ModuleConstraintsManifest manifest;
         public ISlotCluster<ConstrainedSlot, ClusterBrain> cluster = new SlotClusterFixed<ConstrainedSlot, ClusterBrain>();
         public SimpleSolver<ConstrainedSlot, ConstrainedSlotInfos, ClusterBrain> solver;
         public GameObject nullPrefab;
