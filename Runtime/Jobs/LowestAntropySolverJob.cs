@@ -132,8 +132,8 @@ namespace Nebukam.Chemistry
 
             #region QueryHandle
 
-            QueryHandle<T_SLOT, T_SLOT_INFOS, T_BRAIN> Q =
-                new QueryHandle<T_SLOT, T_SLOT_INFOS, T_BRAIN>()
+            QueryHandler<T_SLOT, T_SLOT_INFOS, T_BRAIN> Q =
+                new QueryHandler<T_SLOT, T_SLOT_INFOS, T_BRAIN>()
                 {
                     m_brain = m_brain,
                     m_inputSlotInfos = m_inputSlotInfos,

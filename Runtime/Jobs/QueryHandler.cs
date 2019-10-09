@@ -27,7 +27,7 @@ namespace Nebukam.Chemistry
 {
 
     [BurstCompile]
-    public struct QueryHandle<T_SLOT, T_SLOT_INFOS, T_BRAIN>
+    public struct QueryHandler<T_SLOT, T_SLOT_INFOS, T_BRAIN>
         where T_SLOT : ConstrainedSlot, ISlot
         where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
         where T_BRAIN : struct, IClusterBrain
