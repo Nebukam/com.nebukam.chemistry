@@ -1,0 +1,228 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb1fbd630cde6074ebf77322ad9cbdb8, type: 3}
+  m_Name: OtherTubes.manifest-inlined
+  m_EditorClassIdentifier: 
+  moduleCount: 11
+  modulesLength: 66
+  modulesWeights:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  modulesHeaders:
+  - x: 0
+    y: 1
+    z: 1
+  - x: 1
+    y: 2
+    z: 1
+  - x: 2
+    y: 4
+    z: 2
+  - x: 4
+    y: 6
+    z: 2
+  - x: 6
+    y: 10
+    z: 4
+  - x: 10
+    y: 14
+    z: 4
+  - x: 14
+    y: 15
+    z: 1
+  - x: 15
+    y: 16
+    z: 1
+  - x: 16
+    y: 18
+    z: 2
+  - x: 18
+    y: 19
+    z: 1
+  - x: 19
+    y: 21
+    z: 2
+  - x: 21
+    y: 22
+    z: 1
+  - x: 22
+    y: 23
+    z: 1
+  - x: 23
+    y: 24
+    z: 1
+  - x: 24
+    y: 25
+    z: 1
+  - x: 25
+    y: 27
+    z: 2
+  - x: 27
+    y: 29
+    z: 2
+  - x: 29
+    y: 30
+    z: 1
+  - x: 30
+    y: 31
+    z: 1
+  - x: 31
+    y: 32
+    z: 1
+  - x: 32
+    y: 34
+    z: 2
+  - x: 34
+    y: 35
+    z: 1
+  - x: 35
+    y: 36
+    z: 1
+  - x: 36
+    y: 38
+    z: 2
+  - x: 38
+    y: 39
+    z: 1
+  - x: 39
+    y: 40
+    z: 1
+  - x: 40
+    y: 41
+    z: 1
+  - x: 41
+    y: 43
+    z: 2
+  - x: 43
+    y: 44
+    z: 1
+  - x: 44
+    y: 46
+    z: 2
+  - x: 46
+    y: 47
+    z: 1
+  - x: 47
+    y: 48
+    z: 1
+  - x: 48
+    y: 52
+    z: 4
+  - x: 52
+    y: 56
+    z: 4
+  - x: 56
+    y: 58
+    z: 2
+  - x: 58
+    y: 60
+    z: 2
+  - x: 60
+    y: 61
+    z: 1
+  - x: 61
+    y: 62
+    z: 1
+  - x: 62
+    y: 63
+    z: 1
+  - x: 63
+    y: 64
+    z: 1
+  - x: 64
+    y: 67
+    z: 3
+  - x: 67
+    y: 70
+    z: 3
+  - x: 70
+    y: 71
+    z: 1
+  - x: 71
+    y: 72
+    z: 1
+  - x: 72
+    y: 75
+    z: 3
+  - x: 75
+    y: 78
+    z: 3
+  - x: 78
+    y: 79
+    z: 1
+  - x: 79
+    y: 80
+    z: 1
+  - x: 80
+    y: 81
+    z: 1
+  - x: 81
+    y: 82
+    z: 1
+  - x: 82
+    y: 83
+    z: 1
+  - x: 83
+    y: 84
+    z: 1
+  - x: 84
+    y: 87
+    z: 3
+  - x: 87
+    y: 90
+    z: 3
+  - x: 90
+    y: 91
+    z: 1
+  - x: 91
+    y: 92
+    z: 1
+  - x: 92
+    y: 95
+    z: 3
+  - x: 95
+    y: 98
+    z: 3
+  - x: 98
+    y: 99
+    z: 1
+  - x: 99
+    y: 100
+    z: 1
+  - x: 100
+    y: 101
+    z: 1
+  - x: 101
+    y: 102
+    z: 1
+  - x: 102
+    y: 105
+    z: 3
+  - x: 105
+    y: 108
+    z: 3
+  - x: 108
+    y: 111
+    z: 3
+  - x: 111
+    y: 114
+    z: 3
+  modulesNeighbors: fefffffffeffffff0a000000fefffffffeffffff0a0000000800000003000000060000000400000001000000080000000200000006000000fefffffffeffffff0500000007000000feffffff0000000008000000fefffffffefffffffefffffffeffffff05000000070000000000000006000000fefffffffefffffffeffffff0500000009000000fefffffffeffffff0000000008000000fefffffffefffffffeffffff0500000009000000feffffff0000000006000000fefffffffeffffff0900000007000000020000000400000003000000010000000700000009000000feffffff0a0000000a000000fefffffffefffffffefffffffeffffff0a000000000000000600000004000000000000000600000002000000fefffffffeffffff0500000007000000020000000500000007000000010000000a000000fefffffffefffffffeffffff0a000000feffffff000000000800000003000000000000000800000001000000fefffffffeffffff050000000900000004000000050000000900000003000000feffffff0a000000fefffffffeffffff00000000060000000a0000000a00000000000000080000000a000000050000000900000005000000070000000a000000

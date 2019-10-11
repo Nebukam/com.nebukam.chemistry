@@ -142,7 +142,7 @@ namespace Nebukam.Chemistry
                     m_socketOffsets = m_socketOffsets,
                     m_socketsMirrors = m_socketsMirrors,
                     m_socketsMirrorsIndices = m_socketsMirrorsIndices,
-                    m_headerCount = m_moduleCount,
+                    m_moduleCount = m_moduleCount,
                     m_modulesWeights = m_modulesWeights,
                     m_modulesHeaders = m_modulesHeaders,
                     m_modulesNeighbors = m_modulesNeighbors,
@@ -162,9 +162,10 @@ namespace Nebukam.Chemistry
             Antropy _a;
             SortAntropy antropyComparer = default;
 
+            NativeList<Neighbor>
+                contents = new NativeList<Neighbor>(m_socketCount, Allocator.Temp);
+
             NativeList<int>
-                socketIndices = new NativeList<int>(m_socketCount, Allocator.Temp),
-                socketContent = new NativeList<int>(m_socketCount, Allocator.Temp),
                 candidates = new NativeList<int>(m_modulesNeighbors.Length, Allocator.Temp),
                 slotSocketIndices = new NativeList<int>(m_socketCount, Allocator.Temp),
                 slotIndices = new NativeList<int>(m_socketCount, Allocator.Temp);
@@ -182,8 +183,7 @@ namespace Nebukam.Chemistry
                 if (m_results[slotIndex] < 0 && 
                     Q.TryGetCandidates(
                         slotIndex, 
-                        ref socketIndices, 
-                        ref socketContent, 
+                        ref contents, 
                         ref candidates, 
                         ref weights, 
                         out count))
@@ -234,13 +234,12 @@ namespace Nebukam.Chemistry
 
                 if (Q.TryGetCandidates(
                     index, 
-                    ref socketIndices, 
-                    ref socketContent, 
+                    ref contents, 
                     ref candidates, 
                     ref weights, 
                     out count))
                 {
-                    result = candidates[ NRandom.GetRandomWeightedIndex(ref weights, NextFloat()) ]; // TODO : Select based on weight not just pure random
+                    result = candidates[ NRandom.GetRandomWeightedIndex(ref weights, NextFloat()) ];
                 }
                 else 
                 {
@@ -252,8 +251,8 @@ namespace Nebukam.Chemistry
 
                 // Recalculate antropy of neighboring slots that are currently unset
 
-                if (Q.TryGetUnsetNeighbors(
-                    index, 
+                if (Q.TryGetMatchingNeighbors(
+                    index, SlotContent.UNSET,
                     ref slotSocketIndices, 
                     ref slotIndices, 
                     out count))
@@ -263,8 +262,7 @@ namespace Nebukam.Chemistry
                         index = slotIndices[s];
                         if (Q.TryGetCandidates(
                             index, 
-                            ref socketIndices, 
-                            ref socketContent, 
+                            ref contents, 
                             ref candidates, 
                             ref weights, 
                             out int antropy))
@@ -284,8 +282,7 @@ namespace Nebukam.Chemistry
             #endregion
 
             open.Dispose();
-            socketIndices.Dispose();
-            socketContent.Dispose();
+            contents.Dispose();
             candidates.Dispose();
             slotSocketIndices.Dispose();
             slotIndices.Dispose();

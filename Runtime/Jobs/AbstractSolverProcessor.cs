@@ -84,6 +84,7 @@ namespace Nebukam.Chemistry
             }
 
             job.random = new Unity.Mathematics.Random(seed);
+            job.brain = m_clusterProvider.slotCluster.brain;
 
             job.inputSlotInfos = m_clusterProvider.outputSlotInfos;
             job.inputSlotCoordinateMap = m_clusterProvider.outputSlotCoordinateMap;

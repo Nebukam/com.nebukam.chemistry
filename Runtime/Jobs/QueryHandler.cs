@@ -55,33 +55,19 @@ namespace Nebukam.Chemistry
 
         // Manifest infos
         [ReadOnly]
-        public int m_headerCount;
+        public int m_moduleCount;
         [ReadOnly]
         public NativeArray<float> m_modulesWeights;
         [ReadOnly]
         public NativeArray<int3> m_modulesHeaders;
         [ReadOnly]
         public NativeArray<int> m_modulesNeighbors;
-
+        [ReadOnly]
         public NativeArray<int> m_results;
 
         // Lookups
         [ReadOnly]
         public NativeHashMap<IntPair, bool> m_nullPairLookup;
-
-        #endregion
-
-        #region compute constants
-
-        /// <summary>
-        /// Isolate all headers which any socket have at least more than one constraint
-        /// </summary>
-        /// <param name="candidates"></param>
-        public void ComputeMinConstraintCandidates(
-            ref NativeList<int> candidates)
-        {
-
-        }
 
         #endregion
 
@@ -91,57 +77,49 @@ namespace Nebukam.Chemistry
         /// 
         /// </summary>
         /// <param name="index"></param>
-        /// <param name="socketIndices"></param>
-        /// <param name="socketContents"></param>
+        /// <param name="contents"></param>
         /// <param name="candidates"></param>
         /// <returns></returns>
         public bool TryGetCandidates(
             int index,
-            ref NativeList<int> socketIndices,
-            ref NativeList<int> socketContents,
+            ref NativeList<Neighbor> contents,
             ref NativeList<int> candidates,
             ref NativeList<float> weights,
             out int length)
         {
-            if (!TryGetSlotNeighbors(index, ref socketIndices, ref socketContents, out length))
-            {
+            if (!TryGetSlotNeighbors(index, ref contents, out length))
                 return false;
-            }
 
-            return TryGetCandidates(ref socketIndices, ref socketContents, ref candidates, ref weights, out length);
+            return TryGetCandidates(ref contents, ref candidates, ref weights, out length);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="coord"></param>
-        /// <param name="socketIndices"></param>
-        /// <param name="socketContents"></param>
+        /// <param name="contents"></param>
         /// <param name="candidates"></param>
         /// <returns></returns>
         public bool TryGetCandidates(
             ByteTrio coord,
-            ref NativeList<int> socketIndices,
-            ref NativeList<int> socketContents,
+            ref NativeList<Neighbor> contents,
             ref NativeList<int> candidates,
             ref NativeList<float> weights,
             out int length)
         {
-            if (!TryGetSlotNeighbors(coord, ref socketIndices, ref socketContents, out length))
+            if (!TryGetSlotNeighbors(coord, ref contents, out length))
                 return false;
 
-            return TryGetCandidates(ref socketIndices, ref socketContents, ref candidates, ref weights, out length);
+            return TryGetCandidates(ref contents, ref candidates, ref weights, out length);
         }
 
         /// <summary>
         /// Attempts to build a list of all satisfactory candidates given a finite set of constraints.
         /// </summary>
-        /// <param name="socketIndices">The index of the socket</param>
-        /// <param name="socketContents">The value of the socket at the given index</param>
+        /// <param name="contents">The value of the socket at the given index</param>
         /// <param name="candidates">an empty list that will be filled</param>
         public bool TryGetCandidates(
-            ref NativeList<int> socketIndices,
-            ref NativeList<int> socketContents,
+            ref NativeList<Neighbor> contents,
             ref NativeList<int> candidates,
             ref NativeList<float> weights,
             out int length)
@@ -150,23 +128,24 @@ namespace Nebukam.Chemistry
             candidates.Clear();
             weights.Clear();
 
-            if (socketIndices.Length == 0)
+            if (contents.Length == 0)
             {
                 length = 0;
                 return false;
             }
 
-            for (int h = 0; h < m_headerCount; h++)
+            for (int m = 0; m < m_moduleCount; m++)
             {
-                if (IsSatisfactory(ref socketIndices, ref socketContents, ref h))
+                if (ModuleMatches(ref contents, ref m))
                 {
-                    candidates.Add(h);
-                    weights.Add(m_modulesWeights[h]);
+                    candidates.Add(m);
+                    weights.Add(m_modulesWeights[m]);
                 }
             }
 
             length = candidates.Length;
             return length > 0;
+
         }
 
         #endregion
@@ -178,94 +157,91 @@ namespace Nebukam.Chemistry
         /// Ignore UNSET & EMPTY contents.
         /// </summary>
         /// <param name="index"></param>
-        /// <param name="socketIndices"></param>
-        /// <param name="socketContents"></param>
+        /// <param name="contents"></param>
         public bool TryGetSlotNeighbors(
             int index,
-            ref NativeList<int> socketIndices,
-            ref NativeList<int> socketContents,
+            ref NativeList<Neighbor> contents,
             out int length)
         {
 
-            socketIndices.Clear();
-            socketContents.Clear();
+            contents.Clear();
 
-            ByteTrio center = m_inputSlotInfos[index].coord;
+            int3
+                center = m_inputSlotInfos[index].coord,
+                ccoord;
+
             int _s;
 
             // Identify the content of each neighboring socket, if any
             for (int s = 0; s < m_socketCount; s++)
             {
+                ccoord = center + m_socketOffsets[s];
+                m_brain.Clamp(ref ccoord);
 
-                if (m_inputSlotCoordinateMap.TryGetValue(center + m_socketOffsets[s], out _s))
-                {
+                if (m_inputSlotCoordinateMap.TryGetValue(ccoord, out _s))
                     _s = m_results[_s];
-
-                    if (_s == SlotContent.UNSET || _s == SlotContent.UNSOLVABLE)
-                        continue;
-                }
                 else
-                {
                     _s = SlotContent.NULL;
-                }
 
-                socketIndices.Add(s);
-                socketContents.Add(_s);
+                contents.Add(new Neighbor() { socket = s, value = _s });
 
             }
 
-            length = socketIndices.Length;
+            length = contents.Length;
             return length > 0;
 
         }
 
         /// <summary>
         /// Find the current neighbors for a given slot coordinate.
-        /// Ignore UNSET & EMPTY contents.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="socketIndices"></param>
-        /// <param name="socketContents"></param>
+        /// <param name="coord"></param>
+        /// <param name="contents"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public bool TryGetSlotNeighbors(
             ByteTrio coord,
-            ref NativeList<int> socketIndices,
-            ref NativeList<int> socketContents,
+            ref NativeList<Neighbor> contents,
             out int length)
         {
 
-            socketIndices.Clear();
-            socketContents.Clear();
+            contents.Clear();
+            m_brain.Clamp(ref coord);
 
+            int3 center = coord, ccoord;
             int _s;
 
+            if (!m_inputSlotCoordinateMap.TryGetValue(coord, out _s))
+            {
+                length = 0;
+                return false;
+            }
+
             // Identify the content of each neighboring socket, if any
+
             for (int s = 0; s < m_socketCount; s++)
             {
 
-                if (m_inputSlotCoordinateMap.TryGetValue(coord + m_socketOffsets[s], out _s))
-                {
+                ccoord = center + m_socketOffsets[s];
+                m_brain.Clamp(ref ccoord);
+
+                if (m_inputSlotCoordinateMap.TryGetValue(ccoord, out _s))
                     _s = m_results[_s];
-
-                    if (_s == SlotContent.UNSET || _s == SlotContent.UNSOLVABLE)
-                        continue;
-                }
                 else
-                {
                     _s = SlotContent.NULL;
-                }
 
-                socketIndices.Add(s);
-                socketContents.Add(_s);
+                contents.Add(new Neighbor() { socket = s, value = _s });
 
             }
 
-            length = socketIndices.Length;
+            length = contents.Length;
             return length > 0;
 
         }
 
-        public bool TryGetUnsetNeighbors(
+        public bool TryGetMatchingNeighbors(
             int index,
+            int match,
             ref NativeList<int> socketIndices,
             ref NativeList<int> slotIndices,
             out int length)
@@ -274,20 +250,23 @@ namespace Nebukam.Chemistry
             socketIndices.Clear();
             slotIndices.Clear();
 
-            // Compute the list of currently UNSET neighbors for the given slot index
-            // This should just be a list of socket indices.
-            // i.e if all slots are empty, result == m_socketIndices
+            int3
+                center = m_inputSlotInfos[index].coord,
+                ccoord;
 
-            ByteTrio center = m_inputSlotInfos[index].coord;
             int _s, _c;
 
             // Identify the content of each neighboring socket, if any
             for (int s = 0; s < m_socketCount; s++)
             {
-                if (m_inputSlotCoordinateMap.TryGetValue(center + m_socketOffsets[s], out _s))
+
+                ccoord = center + m_socketOffsets[s];
+                m_brain.Clamp(ref ccoord);
+
+                if (m_inputSlotCoordinateMap.TryGetValue(ccoord, out _s))
                 {
                     _c = m_results[_s];
-                    if (_c == SlotContent.UNSET)
+                    if (_c == match)
                     {
                         socketIndices.Add(s);
                         slotIndices.Add(_s);
@@ -302,13 +281,20 @@ namespace Nebukam.Chemistry
         public float GetNeighborsResolutionRatio(int index)
         {
 
-            ByteTrio center = m_inputSlotInfos[index].coord;
-            int _s, count = 0;
+            int3
+                center = m_inputSlotInfos[index].coord,
+                ccoord;
+
+            int count = 0;
 
             // Identify the content of each neighboring socket, if any
             for (int s = 0; s < m_socketCount; s++)
             {
-                if (m_inputSlotCoordinateMap.TryGetValue(center + m_socketOffsets[s], out _s))
+
+                ccoord = center + m_socketOffsets[s];
+                m_brain.Clamp(ref ccoord);
+
+                if (m_inputSlotCoordinateMap.TryGetValue(ccoord, out int _s))
                 {
                     if (m_results[_s] != SlotContent.UNSET)
                         count++;
@@ -329,47 +315,46 @@ namespace Nebukam.Chemistry
         /// Checks if a given coordinate satisfies a given header.
         /// </summary>
         /// <param name="coord"></param>
-        /// <param name="headerIndex"></param>
+        /// <param name="moduleIndex"></param>
         /// <returns></returns>
-        public bool IsSatisfactory(
+        public bool ModuleMatches(
             ref ByteTrio coord,
-            ref int headerIndex)
+            ref int moduleIndex)
         {
 
-            ByteTrio socket;
-            int3 headerSocket;
-            int
-                _h = headerIndex * m_socketCount,
-                _s;
+            Neighbor content = default;
+            int3
+                center = coord,
+                socket;
 
             for (int s = 0; s < m_socketCount; s++)
             {
 
-                socket = coord + m_socketOffsets[s];
+                content.socket = s;
 
-                if (m_inputSlotCoordinateMap.TryGetValue(socket, out _s))
+                socket = center + m_socketOffsets[s];
+                m_brain.Clamp(ref socket);
+
+                if (m_inputSlotCoordinateMap.TryGetValue(socket, out int _s))
                 {
-                    _s = m_results[_s];
 
-                    // Consider UNSET & EMPTY as satisfactory.
-                    if (_s == SlotContent.UNSET)
+                    content.value = m_results[_s];
+
+                    if (content.IsUndefined)
                     {
-                        // socket only accepts NULL ?
-                        if (m_nullPairLookup.TryGetValue(new IntPair(headerIndex, s), out bool b))
+                        if (RequiresNull(ref moduleIndex, ref content.socket))
                             return false;
-
-                        continue;
+                        else
+                            continue;
                     }
 
                 }
                 else
                 {
-                    _s = SlotContent.NULL;
+                    content.value = SlotContent.NULL;
                 }
 
-                headerSocket = m_modulesHeaders[_h + s];
-
-                if (!SocketContains(ref headerSocket, ref _s))
+                if (!SocketContains(ref moduleIndex, ref content))
                     return false;
 
             }
@@ -381,39 +366,30 @@ namespace Nebukam.Chemistry
         /// <summary>
         /// Checks if a given set of socketIndices & their respective content satisfies the constraints of a given header.
         /// </summary>
-        /// <param name="headerIndex"></param>
-        /// <param name="socketIndices"></param>
-        /// <param name="socketContents"></param>
+        /// <param name="contents"></param>
+        /// <param name="moduleIndex"></param>
         /// <returns></returns>
-        public bool IsSatisfactory(
-            ref NativeList<int> socketIndices,
-            ref NativeList<int> socketContents,
-            ref int headerIndex)
+        public bool ModuleMatches(
+            ref NativeList<Neighbor> contents,
+            ref int moduleIndex)
         {
 
-            int3 headerSocket;
-            int
-                sCount = socketIndices.Length,
-                _h = headerIndex * m_socketCount,
-                _content, _s;
+            Neighbor content;
 
-            for (int s = 0; s < sCount; s++)
+            for (int s = 0, count = contents.Length; s < count; s++)
             {
-                _s = socketIndices[s];
-                _content = socketContents[s];
 
-                if (_content == SlotContent.UNSET)
+                content = contents[s];
+
+                if (content.IsUndefined)
                 {
-                    // socket only accepts NULL ?
-                    if (m_nullPairLookup.TryGetValue(new IntPair(headerIndex, _s), out bool b))
+                    if (RequiresNull(ref moduleIndex, ref content.socket))
                         return false;
-
-                    continue;
+                    else
+                        continue;
                 }
 
-                headerSocket = m_modulesHeaders[_h + _s];
-
-                if (!SocketContains(ref headerSocket, ref _content))
+                if (!SocketContains(ref moduleIndex, ref content))
                     return false;
 
             }
@@ -423,16 +399,29 @@ namespace Nebukam.Chemistry
         }
 
         /// <summary>
+        /// Return whether a module requires a NULL at a given socket
+        /// </summary>
+        /// <param name="moduleIndex"></param>
+        /// <param name="socket"></param>
+        /// <returns></returns>
+        public bool RequiresNull(ref int moduleIndex, ref int socket)
+        {
+            return m_nullPairLookup.TryGetValue(new IntPair(moduleIndex, socket), out bool b);
+        }
+
+        /// <summary>
         /// Return whether an header's socket options contains the given key
         /// </summary>
-        /// <param name="headerSocket"></param>
+        /// <param name="socketHeader"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool SocketContains(ref int3 headerSocket, ref int key)
+        public bool SocketContains(ref int moduleIndex, ref Neighbor content)
         {
 
-            for (int i = headerSocket.x; i < headerSocket.y; i++)
-                if (m_modulesNeighbors[i] == key)
+            int3 socketHeader = m_modulesHeaders[moduleIndex * m_socketCount + content.socket];
+
+            for (int i = socketHeader.x; i < socketHeader.y; i++)
+                if (m_modulesNeighbors[i] == content.value)
                     return true;
 
             return false;

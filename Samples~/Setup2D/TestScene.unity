@@ -229,7 +229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1203150433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,12 +251,17 @@ MonoBehaviour:
   radius: 0.2
   wireOnly: 0
   noDebug: 1
-  manifest: {fileID: 11400000, guid: ac5a97ff7d0941844acaa5ac0bd51ad0, type: 2}
+  manifest: {fileID: 11400000, guid: 120e4243a8e19be4cb25ff4261a018d3, type: 2}
+  wrapX: 0
+  wrapY: 0
+  wrapZ: 0
   nullPrefab: {fileID: 3440294406414095110, guid: cb41d233e256fee409713bac3be84efd,
     type: 3}
   unsolvablePrefab: {fileID: 3440294406414095110, guid: 06f8fedfc72401e4e93c4687ce72e27b,
     type: 3}
   applyRandomRotation: 0
+  randomizeSeed: 1
+  seed: 0
 --- !u!4 &1203150434
 Transform:
   m_ObjectHideFlags: 0
@@ -370,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1540268148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,11 +398,16 @@ MonoBehaviour:
   wireOnly: 0
   noDebug: 1
   manifest: {fileID: 11400000, guid: ac5a97ff7d0941844acaa5ac0bd51ad0, type: 2}
+  wrapX: 1
+  wrapY: 0
+  wrapZ: 0
   nullPrefab: {fileID: 3440294406414095110, guid: cb41d233e256fee409713bac3be84efd,
     type: 3}
   unsolvablePrefab: {fileID: 3440294406414095110, guid: 06f8fedfc72401e4e93c4687ce72e27b,
     type: 3}
   applyRandomRotation: 0
+  randomizeSeed: 1
+  seed: 0
 --- !u!4 &1540268149
 Transform:
   m_ObjectHideFlags: 0
@@ -411,4 +421,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2102585991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2102585993}
+  - component: {fileID: 2102585992}
+  m_Layer: 0
+  m_Name: Cylinder Solver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2102585992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102585991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e8c23f5048712446954d87bc12110f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotModel: {fileID: 11400000, guid: 00f5435c560df884a8ac75bb322ab7f7, type: 2}
+  gridSize:
+    x: 10
+    y: 10
+    z: 1
+  color: {r: 0, g: 0, b: 1, a: 1}
+  radius: 0.2
+  wireOnly: 0
+  noDebug: 1
+  manifest: {fileID: 11400000, guid: ac5a97ff7d0941844acaa5ac0bd51ad0, type: 2}
+  wrapX: 1
+  wrapY: 0
+  wrapZ: 0
+  nullPrefab: {fileID: 0}
+  unsolvablePrefab: {fileID: 0}
+  applyRandomRotation: 1
+  randomizeSeed: 1
+  seed: 0
+--- !u!4 &2102585993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102585991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -115,7 +115,7 @@ namespace Nebukam.Chemistry
                     m_socketOffsets = m_socketOffsets,
                     m_socketsMirrors = m_socketsMirrors,
                     m_socketsMirrorsIndices = m_socketsMirrorsIndices,
-                    m_headerCount = m_moduleCount,
+                    m_moduleCount = m_moduleCount,
                     m_modulesWeights = m_modulesWeights,
                     m_modulesHeaders = m_modulesHeaders,
                     m_modulesNeighbors = m_modulesNeighbors,
@@ -125,9 +125,10 @@ namespace Nebukam.Chemistry
 
             #endregion
 
+            NativeList<Neighbor>
+                contents = new NativeList<Neighbor>(m_socketCount, Allocator.Temp);
+
             NativeList<int>
-                socketIndices = new NativeList<int>(m_socketCount, Allocator.Temp),
-                socketContent = new NativeList<int>(m_socketCount, Allocator.Temp),
                 candidates = new NativeList<int>(m_modulesNeighbors.Length, Allocator.Temp),
                 unsolvables = new NativeList<int>(10, Allocator.Temp);
 
@@ -135,12 +136,10 @@ namespace Nebukam.Chemistry
                 weights = new NativeList<float>(m_moduleCount, Allocator.Temp);
 
             int
-                sCount = m_inputSlotInfos.Length,
-                nCount = m_modulesNeighbors.Length,
                 cCount,
                 result;
 
-            for (int slotIndex = 0; slotIndex < sCount; slotIndex++)
+            for (int slotIndex = 0, count = m_inputSlotInfos.Length; slotIndex < count; slotIndex++)
             {
 
                 if (m_results[slotIndex] >= 0)
@@ -148,13 +147,11 @@ namespace Nebukam.Chemistry
 
                 if (Q.TryGetCandidates(
                     slotIndex,
-                    ref socketIndices,
-                    ref socketContent,
+                    ref contents,
                     ref candidates,
                     ref weights,
                     out cCount))
                 {
-                    //result = candidates[NextInt(ref cCount)];
                     result = candidates[NRandom.GetRandomWeightedIndex(ref weights, NextFloat())];
                 }
                 else
@@ -168,6 +165,7 @@ namespace Nebukam.Chemistry
             }
 
             // Second pass if necessary
+
             if (unsolvables.Length != 0)
             {
                 int index = 0;
@@ -178,21 +176,23 @@ namespace Nebukam.Chemistry
 
                     if (Q.TryGetCandidates(
                         index,
-                        ref socketIndices,
-                        ref socketContent,
+                        ref contents,
                         ref candidates,
                         ref weights,
                         out cCount))
-                        result = candidates[NextInt(ref cCount)];
+                    {
+                        result = candidates[NRandom.GetRandomWeightedIndex(ref weights, NextFloat())];
+                    }
                     else
+                    {
                         result = SlotContent.UNSOLVABLE;
+                    }
 
                     m_results[index] = result;
                 }
             }
 
-            socketIndices.Dispose();
-            socketContent.Dispose();
+            contents.Dispose();
             candidates.Dispose();
             unsolvables.Dispose();
             weights.Dispose();

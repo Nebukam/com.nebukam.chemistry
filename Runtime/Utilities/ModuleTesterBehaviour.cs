@@ -16,10 +16,18 @@ namespace Nebukam.Chemistry
 
         public ModuleConstraintsManifest manifest;
 
+        [Header("Cluster settings")]
+        public Nebukam.Cluster.WrapMode wrapX = Nebukam.Cluster.WrapMode.NONE;
+        public Nebukam.Cluster.WrapMode wrapY = Nebukam.Cluster.WrapMode.NONE;
+        public Nebukam.Cluster.WrapMode wrapZ = Nebukam.Cluster.WrapMode.NONE;
+
+
         [Header("Spawn settings")]
         public GameObject nullPrefab;
         public GameObject unsolvablePrefab;
         public bool applyRandomRotation = true;
+        public bool randomizeSeed = true;
+        public uint seed = 0;
 
         public T_CLUSTER cluster;
         public ISolverBundle solver;
@@ -29,6 +37,13 @@ namespace Nebukam.Chemistry
         {
             cluster = new T_CLUSTER();
             cluster.Init(manifest.model, gridSize, true);
+
+            T_BRAIN brain = cluster.brain;
+            brain.wrapX = wrapX;
+            brain.wrapY = wrapY;
+            brain.wrapZ = wrapZ;
+
+            cluster.brain = brain;
 
             solver = Solver(cluster);
 
@@ -58,40 +73,49 @@ namespace Nebukam.Chemistry
 
                 ClearChilds();
 
+                Spawn();
+
+                seed = randomizeSeed ? (uint)UnityEngine.Random.Range(0, 10000) : seed;
+                solver.seed = seed;
+
                 cluster.size = gridSize;
                 cluster.Fill();
 
-                NativeArray<int> results = solver.results;
-                int index, count = min(results.Length, cluster.Count);
-                GameObject go, prefab;
-                Quaternion r;
-                ISlot slot;
-                ByteTrio coord;
-                float3 origin = transform.position;
-
-                for (int i = 0; i < count; i++)
-                {
-
-                    index = results[i];
-
-                    if (index < 0)
-                        prefab = unsolvablePrefab;
-                    else
-                        prefab = manifest.infos[index].prefab;
-
-                    if (prefab == nullPrefab)
-                        continue;
-
-                    slot = cluster[i];
-                    coord = slot.coordinates;
-
-                    r = applyRandomRotation ? Quaternion.Euler(0f, UnityEngine.Random.Range(0, 4) * 90, 0f) : Quaternion.identity;
-                    go = GameObject.Instantiate(prefab, origin + cluster.brain.ComputePosition(ref coord), r, transform) as GameObject;
-
-                }
-
-                solver.seed = (uint)UnityEngine.Random.Range(0, 10000);
                 solver.Schedule(0f);
+
+            }
+        }
+
+        protected virtual void Spawn()
+        {
+            NativeArray<int> results = solver.results;
+            int index, count = min(results.Length, cluster.Count);
+            GameObject go, prefab;
+            Quaternion r;
+            ISlot slot;
+            ByteTrio coord;
+            float3 origin = transform.position;
+
+            for (int i = 0; i < count; i++)
+            {
+
+                index = results[i];
+
+                if (index < 0)
+                    prefab = unsolvablePrefab;
+                else
+                    prefab = manifest.infos[index].prefab;
+
+                if (prefab == nullPrefab)
+                    continue;
+
+                slot = cluster[i];
+                coord = slot.coordinates;
+
+                r = applyRandomRotation ? Quaternion.Euler(0f, UnityEngine.Random.Range(0, 4) * 90, 0f) : Quaternion.identity;
+                go = GameObject.Instantiate(prefab, origin + cluster.brain.ComputePosition(ref coord), r, transform) as GameObject;
+
+                go.name = i + ":" + prefab.name;
 
             }
         }

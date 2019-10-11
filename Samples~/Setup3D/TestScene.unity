@@ -252,11 +252,16 @@ MonoBehaviour:
   wireOnly: 0
   noDebug: 1
   manifest: {fileID: 11400000, guid: 8841472f249e452488c11e618159f451, type: 2}
+  wrapX: 1
+  wrapY: 0
+  wrapZ: 1
   nullPrefab: {fileID: 3440294406414095110, guid: bdd039548c98c4542824014dfb522f5b,
     type: 3}
   unsolvablePrefab: {fileID: 3440294406414095110, guid: b9e72505dce7ea84fa7468fa2aac9569,
     type: 3}
   applyRandomRotation: 1
+  randomizeSeed: 1
+  seed: 5876
 --- !u!4 &1450888868
 Transform:
   m_ObjectHideFlags: 0
@@ -393,11 +398,16 @@ MonoBehaviour:
   wireOnly: 0
   noDebug: 1
   manifest: {fileID: 11400000, guid: 8841472f249e452488c11e618159f451, type: 2}
+  wrapX: 1
+  wrapY: 0
+  wrapZ: 1
   nullPrefab: {fileID: 3440294406414095110, guid: bdd039548c98c4542824014dfb522f5b,
     type: 3}
   unsolvablePrefab: {fileID: 3440294406414095110, guid: b9e72505dce7ea84fa7468fa2aac9569,
     type: 3}
   applyRandomRotation: 1
+  randomizeSeed: 1
+  seed: 0
 --- !u!4 &1931516946
 Transform:
   m_ObjectHideFlags: 0
