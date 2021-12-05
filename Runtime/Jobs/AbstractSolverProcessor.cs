@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using Nebukam.JobAssist;
+using static Nebukam.JobAssist.CollectionsUtils;
 using Unity.Collections;
 using Nebukam.Cluster;
 
@@ -77,8 +78,8 @@ namespace Nebukam.Chemistry
         protected override void Prepare(ref T_JOB job, float delta)
         {
 
-            if (!TryGetFirstInGroup(out m_clusterProvider, true) ||
-                !TryGetFirstInGroup(out m_manifestProvider, true))
+            if (!TryGetFirstInCompound(out m_clusterProvider, true) ||
+                !TryGetFirstInCompound(out m_manifestProvider, true))
             {
                 throw new System.Exception("No Cluster Provider or Manifest Provider in chain !");
             }
@@ -102,14 +103,9 @@ namespace Nebukam.Chemistry
             job.nullPairLookup = m_manifestProvider.nullPairLookup;
             
             int count = m_clusterProvider.outputSlotInfos.Length;
-            if (m_results.Length != count)
-            {
-                m_results.Dispose();
-                m_results = new NativeArray<int>(count, Allocator.Persistent);
 
-                m_debug.Dispose();
-                m_debug = new NativeArray<float>(count, Allocator.Persistent);
-            }
+            MakeLength(ref m_results, count);
+            MakeLength(ref m_debug, count);
 
             // This is where pre-defined constraints should be set.
             for (int i = 0; i < count; i++)
@@ -126,15 +122,11 @@ namespace Nebukam.Chemistry
 
         protected override void InternalUnlock() { }
 
-        protected override void Dispose(bool disposing)
+        protected override void InternalDispose()
         {
-            base.Dispose(disposing);
-            if (!disposing) { return; }
-
             m_clusterProvider = null;
             m_manifestProvider = null;
             m_results.Dispose();
-
         }
 
     }

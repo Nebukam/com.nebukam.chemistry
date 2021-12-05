@@ -50,13 +50,6 @@ namespace Nebukam.Chemistry
 
         protected override void InternalUnlock() { }
 
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-            if (!disposing) { return; }
-
-        }
-
     }
     
 }

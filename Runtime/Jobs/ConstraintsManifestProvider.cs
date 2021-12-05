@@ -153,11 +153,8 @@ namespace Nebukam.Chemistry
 
         protected override void InternalUnlock() { }
 
-        protected override void Dispose(bool disposing)
+        protected override void InternalDispose()
         {
-            base.Dispose(disposing);
-            if (!disposing) { return; }
-
             m_manifest = null;
 
             m_socketsOffsets.Dispose();
@@ -168,7 +165,6 @@ namespace Nebukam.Chemistry
             m_modulesNeighbors.Dispose();
 
             m_nullPairLookup.Dispose();
-
         }
 
     }
