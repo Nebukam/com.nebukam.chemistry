@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Timothé Lapetite - nebukam@gmail.com.
+﻿// Copyright (c) 2021 Timothé Lapetite - nebukam@gmail.com.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,10 +25,10 @@ using UnityEditor;
 using UnityEngine;
 using static Unity.Mathematics.math;
 
-namespace Nebukam.Chemistry.Ed
+namespace Nebukam.Chemistry.Editor
 {
     [CustomEditor(typeof(ModuleConstraintsModel))]
-    public class ModuleConstraintsModelEditor : Editor
+    public class ModuleConstraintsModelEditor : UnityEditor.Editor
     {
 
         public override void OnInspectorGUI()

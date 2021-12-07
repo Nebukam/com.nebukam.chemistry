@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Timothé Lapetite - nebukam@gmail.com.
+﻿// Copyright (c) 2021 Timothé Lapetite - nebukam@gmail.com.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -17,7 +17,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-
+#if UNITY_EDITOR
 using Nebukam.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +27,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Unity.Mathematics.math;
 
-namespace Nebukam.Chemistry.Ed
+namespace Nebukam.Chemistry.Editor
 {
     public class ModuleConstraintsManifestBuilder : Pooling.PoolItem, Pooling.IRequireCleanUp
     {
@@ -344,3 +344,4 @@ namespace Nebukam.Chemistry.Ed
 
     }
 }
+#endif

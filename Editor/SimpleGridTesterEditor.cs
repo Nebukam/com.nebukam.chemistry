@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Timothé Lapetite - nebukam@gmail.com.
+﻿// Copyright (c) 2021 Timothé Lapetite - nebukam@gmail.com.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,10 +24,10 @@ using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
 
-namespace Nebukam.Chemistry.Ed
+namespace Nebukam.Chemistry.Editor
 {
     [CustomEditor(typeof(SimpleGridTester))]
-    public class SimpleGridTesterEditor : Editor
+    public class SimpleGridTesterEditor : UnityEditor.Editor
     {
 
         //void OnEnable() { EditorApplication.update += Update; }

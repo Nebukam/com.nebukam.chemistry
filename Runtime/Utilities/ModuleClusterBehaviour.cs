@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Timothé Lapetite - nebukam@gmail.com.
+﻿// Copyright (c) 2021 Timothé Lapetite - nebukam@gmail.com.
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,8 @@ namespace Nebukam.Chemistry
         public bool noDebug = false;
 
         public ClusterBrain brain;
+
+#if UNITY_EDITOR
 
         #region Gizmos
 
@@ -131,6 +133,8 @@ namespace Nebukam.Chemistry
         }
 
         #endregion
+
+#endif
 
         #region Positioning
         /*
