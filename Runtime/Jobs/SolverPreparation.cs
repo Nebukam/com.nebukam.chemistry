@@ -58,13 +58,5 @@ namespace Nebukam.Chemistry
             Add(ref m_manifestProvider);
         }
 
-        protected override void InternalLock() { }
-
-        protected override void Prepare(float delta) { }
-
-        protected override void Apply() { }
-
-        protected override void InternalUnlock() { }
-
     }
 }

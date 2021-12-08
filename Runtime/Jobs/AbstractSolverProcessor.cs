@@ -70,11 +70,6 @@ namespace Nebukam.Chemistry
         public NativeArray<int> results { get { return m_results; } }
         public NativeArray<float> debug { get { return m_debug; } }
 
-        protected override void InternalLock()
-        {
-
-        }
-
         protected override void Prepare(ref T_JOB job, float delta)
         {
 
@@ -114,13 +109,6 @@ namespace Nebukam.Chemistry
             job.results = m_results;
             job.debug = m_debug;
         }
-
-        protected override void Apply(ref T_JOB job)
-        {
-
-        }
-
-        protected override void InternalUnlock() { }
 
         protected override void InternalDispose()
         {

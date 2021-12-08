@@ -73,8 +73,6 @@ namespace Nebukam.Chemistry
         // key = header index : socket index
         public NativeHashMap<IntPair, bool> nullPairLookup { get { return m_nullPairLookup; } }
 
-        protected override void InternalLock() { }
-
         protected override void Prepare(ref ConstraintManifestJob job, float delta)
         {
 
@@ -148,10 +146,6 @@ namespace Nebukam.Chemistry
             #endregion
 
         }
-
-        protected override void Apply(ref ConstraintManifestJob job) { }
-
-        protected override void InternalUnlock() { }
 
         protected override void InternalDispose()
         {
