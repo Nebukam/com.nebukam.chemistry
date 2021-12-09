@@ -20,7 +20,6 @@
 
 using Nebukam.Cluster;
 using Nebukam.JobAssist;
-using Nebukam.Utils;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Mathematics;
@@ -239,7 +238,7 @@ namespace Nebukam.Chemistry
                     ref weights, 
                     out count))
                 {
-                    result = candidates[ NRandom.GetRandomWeightedIndex(ref weights, NextFloat()) ];
+                    result = candidates[ Common.NRandom.GetRandomWeightedIndex(ref weights, NextFloat()) ];
                 }
                 else 
                 {

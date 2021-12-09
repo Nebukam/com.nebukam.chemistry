@@ -29,7 +29,7 @@ using static Unity.Mathematics.math;
 
 namespace Nebukam.Chemistry.Editor
 {
-    public class ModuleConstraintsManifestBuilder : Pooling.PoolItem, Pooling.IRequireCleanUp
+    public class ModuleConstraintsManifestBuilder : PoolItem, IRequireCleanUp
     {
 
         protected internal List<ModuleConstraintsBuilder> m_builders = new List<ModuleConstraintsBuilder>();
@@ -136,7 +136,7 @@ namespace Nebukam.Chemistry.Editor
                     if (!m_builderMap.TryGetValue(modulePrefab, out moduleBuilder))
                     {
 
-                        moduleBuilder = Pooling.Pool.Rent<ModuleConstraintsBuilder>();
+                        moduleBuilder = Pool.Rent<ModuleConstraintsBuilder>();
 
                         moduleBuilder.m_index = uid++;
                         moduleBuilder.m_prefab = modulePrefab;

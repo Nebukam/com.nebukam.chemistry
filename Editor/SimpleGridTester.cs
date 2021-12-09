@@ -21,6 +21,7 @@
 #if UNITY_EDITOR
 using Nebukam.Cluster;
 using UnityEngine;
+using Nebukam.Common;
 
 namespace Nebukam.Chemistry.Editor
 {

@@ -18,11 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Nebukam.Cluster;
-using Nebukam.Utils;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Mathematics;
+using Nebukam.Common;
+using Nebukam.Cluster;
 
 namespace Nebukam.Chemistry
 {

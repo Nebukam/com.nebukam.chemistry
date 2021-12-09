@@ -55,7 +55,7 @@ namespace Nebukam.Chemistry.Editor
         /// </summary>
         protected virtual void GenerateManifest(ModuleSampler group)
         {
-            ModuleConstraintsManifestBuilder builder = Pooling.Pool.Rent<ModuleConstraintsManifestBuilder>();
+            ModuleConstraintsManifestBuilder builder = Pool.Rent<ModuleConstraintsManifestBuilder>();
 
             builder.Process(group.slotModel, group.manifestID);
 

@@ -24,7 +24,7 @@ using UnityEngine;
 
 namespace Nebukam.Chemistry.Editor
 {
-    public class ModuleConstraintsBuilder : Pooling.PoolItem, Pooling.IRequireCleanUp, Pooling.IRequireInit
+    public class ModuleConstraintsBuilder : PoolItem, IRequireCleanUp, IRequireInit
     {
 
         protected internal ModuleConstraints m_data;
