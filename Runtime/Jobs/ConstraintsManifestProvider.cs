@@ -18,10 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
-using Nebukam.JobAssist;
 using Unity.Collections;
 using Unity.Mathematics;
+
+using Nebukam.JobAssist;
+using static Nebukam.JobAssist.CollectionsUtils;
 
 namespace Nebukam.Chemistry
 {
@@ -48,15 +49,15 @@ namespace Nebukam.Chemistry
 
         protected ModuleConstraintsManifest m_manifest = null;
 
-        protected NativeArray<int3> m_socketsOffsets = new NativeArray<int3>(0, Allocator.Persistent);
-        protected NativeArray<int3> m_socketsMirrors = new NativeArray<int3>(0, Allocator.Persistent);
-        protected NativeArray<int> m_socketsMirrorsIndices = new NativeArray<int>(0, Allocator.Persistent);
+        protected NativeArray<int3> m_socketsOffsets = default;
+        protected NativeArray<int3> m_socketsMirrors = default;
+        protected NativeArray<int> m_socketsMirrorsIndices = default;
 
-        protected NativeArray<float> m_modulesWeights = new NativeArray<float>(0, Allocator.Persistent);
-        protected NativeArray<int3> m_modulesHeaders = new NativeArray<int3>(0, Allocator.Persistent);
-        protected NativeArray<int> m_modulesNeighbors = new NativeArray<int>(0, Allocator.Persistent);
+        protected NativeArray<float> m_modulesWeights = default;
+        protected NativeArray<int3> m_modulesHeaders = default;
+        protected NativeArray<int> m_modulesNeighbors = default;
 
-        protected NativeHashMap<IntPair, bool> m_nullPairLookup = new NativeHashMap<IntPair, bool>(0, Allocator.Persistent);
+        protected NativeHashMap<IntPair, bool> m_nullPairLookup = default;
 
 
 
@@ -81,15 +82,10 @@ namespace Nebukam.Chemistry
             ModuleConstraintsModel model = m_manifest.model;
             int socketCount = model.socketsOffsets.Length;
 
-            if (m_socketsOffsets.Length != socketCount)
+            if (!MakeLength(ref m_socketsOffsets, socketCount))
             {
-                m_socketsOffsets.Dispose();
-                m_socketsMirrors.Dispose();
-                m_socketsMirrorsIndices.Dispose();
-
-                m_socketsOffsets = new NativeArray<int3>(socketCount, Allocator.Persistent);
-                m_socketsMirrors = new NativeArray<int3>(socketCount, Allocator.Persistent);
-                m_socketsMirrorsIndices = new NativeArray<int>(socketCount, Allocator.Persistent);
+                MakeLength(ref m_socketsMirrors, socketCount);
+                MakeLength(ref m_socketsMirrorsIndices, socketCount);
             }
 
             for (int i = 0; i < socketCount; i++)
@@ -113,17 +109,12 @@ namespace Nebukam.Chemistry
                 headerCount = headerList.Length,
                 neighborsCount = neighborsList.Length;
 
-            if (m_modulesHeaders.Length != headerCount)
+            if(!MakeLength(ref m_modulesHeaders, headerCount))
             {
-                m_modulesWeights.Dispose();
-                m_modulesHeaders.Dispose();
-                m_modulesNeighbors.Dispose();
-                m_nullPairLookup.Dispose();
-
-                m_modulesWeights = new NativeArray<float>(moduleCount, Allocator.Persistent);
-                m_modulesHeaders = new NativeArray<int3>(headerCount, Allocator.Persistent);
-                m_modulesNeighbors = new NativeArray<int>(neighborsCount, Allocator.Persistent);
-                m_nullPairLookup = new NativeHashMap<IntPair, bool>(moduleCount * socketCount, Allocator.Persistent);
+                MakeLength(ref m_modulesWeights, moduleCount);
+                MakeLength(ref m_modulesNeighbors, neighborsCount);
+                MakeLength(ref m_nullPairLookup, moduleCount * socketCount);
+                //m_nullPairLookup = new NativeHashMap<IntPair, bool>(moduleCount * socketCount, Allocator.Persistent);
             }
 
             for (int i = 0; i < moduleCount; i++)

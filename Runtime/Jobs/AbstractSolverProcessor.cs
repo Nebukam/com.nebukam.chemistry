@@ -61,8 +61,8 @@ namespace Nebukam.Chemistry
 
         protected IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> m_clusterProvider = null;
         protected IConstraintsManifestProvider m_manifestProvider = null;
-        protected NativeArray<int> m_results = new NativeArray<int>(0, Allocator.Persistent);
-        protected NativeArray<float> m_debug = new NativeArray<float>(0, Allocator.Persistent);
+        protected NativeArray<int> m_results = default;
+        protected NativeArray<float> m_debug = default;
 
         public uint seed { get; set; } = 1;
         public IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> clusterProvider { get { return m_clusterProvider; } }
@@ -103,8 +103,7 @@ namespace Nebukam.Chemistry
             MakeLength(ref m_debug, count);
 
             // This is where pre-defined constraints should be set.
-            for (int i = 0; i < count; i++)
-                m_results[i] = SlotContent.UNSET;
+            FloodArray(m_results, SlotContent.UNSET);
 
             job.results = m_results;
             job.debug = m_debug;
