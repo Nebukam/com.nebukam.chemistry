@@ -23,7 +23,7 @@ using UnityEngine;
 namespace Nebukam.Chemistry
 {
 
-    [CreateAssetMenu(fileName = "ModuleManifest", menuName = "Nebukam/Chemistry/Module Constraints Manifest", order = 1)]
+    [CreateAssetMenu(fileName = "ModuleManifest", menuName = "N:Toolkit/Chemistry/Module Constraints Manifest", order = 1)]
     public class ModuleConstraintsManifest : ScriptableObject
     {
 

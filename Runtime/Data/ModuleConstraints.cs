@@ -25,7 +25,7 @@ using Unity.Mathematics;
 namespace Nebukam.Chemistry
 {
 
-    [CreateAssetMenu(fileName = "ModuleConstraints", menuName = "Nebukam/Chemistry/Module Constraints", order = 1)]
+    [CreateAssetMenu(fileName = "ModuleConstraints", menuName = "N:Toolkit/Chemistry/Module Constraints", order = 1)]
     public class ModuleConstraints : ScriptableObject
     {
 

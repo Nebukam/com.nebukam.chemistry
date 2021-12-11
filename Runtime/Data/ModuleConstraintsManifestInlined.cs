@@ -24,7 +24,7 @@ using UnityEngine;
 namespace Nebukam.Chemistry
 {
 
-    [CreateAssetMenu(fileName = "ModuleConstraintsManifestInlined", menuName = "Nebukam/Chemistry/Module Constraints Manifest Inlined", order = 1)]
+    [CreateAssetMenu(fileName = "ModuleConstraintsManifestInlined", menuName = "N:Toolkit/Chemistry/Module Constraints Manifest Inlined", order = 1)]
     public class ModuleConstraintsManifestInlined : ScriptableObject
     {
         public int moduleCount;

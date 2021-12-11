@@ -26,7 +26,7 @@ using UnityEngine;
 namespace Nebukam.Chemistry
 {
 
-    [CreateAssetMenu(fileName = "ModuleConstraintsModel", menuName = "Nebukam/Chemistry/Module Constraints Model", order = 1)]
+    [CreateAssetMenu(fileName = "ModuleConstraintsModel", menuName = "N:Toolkit/Chemistry/Module Constraints Model", order = 1)]
     public class ModuleConstraintsModel : SlotModelData
     {
         [Header("Neighborhood config")]
