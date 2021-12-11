@@ -21,7 +21,7 @@
 using System;
 using System.Collections.Generic;
 using Nebukam.JobAssist;
-using static Nebukam.JobAssist.CollectionsUtils;
+using static Nebukam.JobAssist.Extensions;
 using Unity.Collections;
 using Nebukam.Cluster;
 
@@ -113,7 +113,7 @@ namespace Nebukam.Chemistry
         {
             m_clusterProvider = null;
             m_manifestProvider = null;
-            m_results.Dispose();
+            m_results.Release();
         }
 
     }

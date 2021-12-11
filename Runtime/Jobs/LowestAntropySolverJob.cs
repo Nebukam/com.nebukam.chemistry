@@ -280,12 +280,12 @@ namespace Nebukam.Chemistry
 
             #endregion
 
-            open.Dispose();
-            contents.Dispose();
-            candidates.Dispose();
-            slotSocketIndices.Dispose();
-            slotIndices.Dispose();
-            weights.Dispose();
+            open.Release();
+            contents.Release();
+            candidates.Release();
+            slotSocketIndices.Release();
+            slotIndices.Release();
+            weights.Release();
         }
 
         private void UpdateAntropy(

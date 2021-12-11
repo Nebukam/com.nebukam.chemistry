@@ -22,7 +22,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 
 using Nebukam.JobAssist;
-using static Nebukam.JobAssist.CollectionsUtils;
+using static Nebukam.JobAssist.Extensions;
 
 namespace Nebukam.Chemistry
 {
@@ -142,14 +142,14 @@ namespace Nebukam.Chemistry
         {
             m_manifest = null;
 
-            m_socketsOffsets.Dispose();
-            m_socketsMirrors.Dispose();
-            m_socketsMirrorsIndices.Dispose();
+            m_socketsOffsets.Release();
+            m_socketsMirrors.Release();
+            m_socketsMirrorsIndices.Release();
 
-            m_modulesHeaders.Dispose();
-            m_modulesNeighbors.Dispose();
+            m_modulesHeaders.Release();
+            m_modulesNeighbors.Release();
 
-            m_nullPairLookup.Dispose();
+            m_nullPairLookup.Release();
         }
 
     }

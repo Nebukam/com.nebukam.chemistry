@@ -18,11 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using Nebukam.Cluster;
+using Nebukam.Common;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Mathematics;
-using Nebukam.Common;
-using Nebukam.Cluster;
+using static Nebukam.JobAssist.Extensions;
 
 namespace Nebukam.Chemistry
 {
@@ -192,10 +193,10 @@ namespace Nebukam.Chemistry
                 }
             }
 
-            contents.Dispose();
-            candidates.Dispose();
-            unsolvables.Dispose();
-            weights.Dispose();
+            contents.Release();
+            candidates.Release();
+            unsolvables.Release();
+            weights.Release();
 
         }
 
