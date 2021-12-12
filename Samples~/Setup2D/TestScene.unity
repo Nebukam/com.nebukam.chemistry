@@ -453,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotModel: {fileID: 11400000, guid: 00f5435c560df884a8ac75bb322ab7f7, type: 2}
   gridSize:
-    x: 10
+    x: 20
     y: 10
     z: 1
   color: {r: 0, g: 0, b: 1, a: 1}
@@ -465,7 +465,8 @@ MonoBehaviour:
   wrapY: 0
   wrapZ: 0
   nullPrefab: {fileID: 0}
-  unsolvablePrefab: {fileID: 0}
+  unsolvablePrefab: {fileID: 3440294406414095110, guid: 06f8fedfc72401e4e93c4687ce72e27b,
+    type: 3}
   applyRandomRotation: 1
   randomizeSeed: 1
   seed: 0
