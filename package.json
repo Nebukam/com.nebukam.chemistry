@@ -1,6 +1,6 @@
 {
   "name": "com.nebukam.chemistry",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "N:Chemistry",
   "description": "Chemistry toolkit for constraint-based procedural generation",
   "unity": "2019.4",
