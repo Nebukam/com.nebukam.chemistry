@@ -41,7 +41,7 @@ namespace Nebukam.Chemistry
         [ReadOnly]
         public NativeArray<T_SLOT_INFOS> m_inputSlotInfos;
         [ReadOnly]
-        public NativeHashMap<ByteTrio, int> m_inputSlotCoordinateMap;
+        public NativeParallelHashMap<ByteTrio, int> m_inputSlotCoordinateMap;
 
         // Model infos
         [ReadOnly]
@@ -67,7 +67,7 @@ namespace Nebukam.Chemistry
 
         // Lookups
         [ReadOnly]
-        public NativeHashMap<IntPair, bool> m_nullPairLookup;
+        public NativeParallelHashMap<IntPair, bool> m_nullPairLookup;
 
         #endregion
 

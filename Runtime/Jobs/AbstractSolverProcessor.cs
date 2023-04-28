@@ -35,8 +35,8 @@ namespace Nebukam.Chemistry
     /// <typeparam name="T_SLOT_INFOS">Slot Infos Type (paired with provided Slot type)</typeparam>
     public interface ISolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN> : IProcessor
         where T_SLOT : ConstrainedSlot, ISlot
-        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
-        where T_BRAIN : struct, IClusterBrain
+        where T_SLOT_INFOS : unmanaged, ISlotInfos<T_SLOT>
+        where T_BRAIN : unmanaged, IClusterBrain
     {
         uint seed { get; set; }
         IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> clusterProvider { get; }
@@ -54,9 +54,9 @@ namespace Nebukam.Chemistry
     /// <typeparam name="T_JOB">Cluster brain</typeparam>
     public abstract class AbstractSolverProcessor<T_SLOT, T_SLOT_INFOS, T_JOB, T_BRAIN> : Processor<T_JOB>, ISolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN>
         where T_SLOT : ConstrainedSlot, ISlot
-        where T_SLOT_INFOS : struct, ISlotInfos<T_SLOT>
+        where T_SLOT_INFOS : unmanaged, ISlotInfos<T_SLOT>
         where T_JOB : struct, ISolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN>
-        where T_BRAIN : struct, IClusterBrain
+        where T_BRAIN : unmanaged, IClusterBrain
     {
 
         protected IClusterProvider<T_SLOT, T_SLOT_INFOS, T_BRAIN> m_clusterProvider = null;

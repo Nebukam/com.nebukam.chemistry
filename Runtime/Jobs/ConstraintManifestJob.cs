@@ -45,7 +45,7 @@ namespace Nebukam.Chemistry
         [ReadOnly]
         public NativeArray<int> m_modulesNeighbors;
 
-        public NativeHashMap<IntPair, bool> m_nullPairLookup;
+        public NativeParallelHashMap<IntPair, bool> m_nullPairLookup;
         //public NativeList<int> m_nonNullHeaders;
 
         public void Execute()

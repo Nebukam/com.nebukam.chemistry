@@ -42,7 +42,7 @@ namespace Nebukam.Chemistry
         // Cluster infos
         T_BRAIN brain { set; }
         NativeArray<T_SLOT_INFOS> inputSlotInfos { set; }
-        NativeHashMap<ByteTrio, int> inputSlotCoordinateMap { set; }
+        NativeParallelHashMap<ByteTrio, int> inputSlotCoordinateMap { set; }
 
         // Model infos
         int socketCount { set; }
@@ -59,7 +59,7 @@ namespace Nebukam.Chemistry
         NativeArray<float> debug { set; }
 
         // Lookup
-        NativeHashMap<IntPair, bool> nullPairLookup { set; }
+        NativeParallelHashMap<IntPair, bool> nullPairLookup { set; }
 
 
     }

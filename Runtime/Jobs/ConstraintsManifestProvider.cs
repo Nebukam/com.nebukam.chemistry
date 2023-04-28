@@ -40,7 +40,7 @@ namespace Nebukam.Chemistry
         NativeArray<int3> modulesHeaders { get; }
         NativeArray<int> modulesNeighbors { get; }
 
-        NativeHashMap<IntPair, bool> nullPairLookup { get; }
+        NativeParallelHashMap<IntPair, bool> nullPairLookup { get; }
 
     }
 
@@ -57,7 +57,7 @@ namespace Nebukam.Chemistry
         protected NativeArray<int3> m_modulesHeaders = default;
         protected NativeArray<int> m_modulesNeighbors = default;
 
-        protected NativeHashMap<IntPair, bool> m_nullPairLookup = default;
+        protected NativeParallelHashMap<IntPair, bool> m_nullPairLookup = default;
 
 
 
@@ -72,7 +72,7 @@ namespace Nebukam.Chemistry
         public NativeArray<int> modulesNeighbors { get { return m_modulesNeighbors; } }
 
         // key = header index : socket index
-        public NativeHashMap<IntPair, bool> nullPairLookup { get { return m_nullPairLookup; } }
+        public NativeParallelHashMap<IntPair, bool> nullPairLookup { get { return m_nullPairLookup; } }
 
         protected override void Prepare(ref ConstraintManifestJob job, float delta)
         {

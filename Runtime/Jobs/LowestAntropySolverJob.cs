@@ -45,7 +45,7 @@ namespace Nebukam.Chemistry
         [ReadOnly]
         public NativeArray<T_SLOT_INFOS> m_inputSlotInfos;
         [ReadOnly]
-        public NativeHashMap<ByteTrio, int> m_inputSlotCoordinateMap;
+        public NativeParallelHashMap<ByteTrio, int> m_inputSlotCoordinateMap;
 
         // Model infos
         [ReadOnly]
@@ -69,7 +69,7 @@ namespace Nebukam.Chemistry
 
         // Lookups
         [ReadOnly]
-        public NativeHashMap<IntPair, bool> m_nullPairLookup;
+        public NativeParallelHashMap<IntPair, bool> m_nullPairLookup;
 
         public NativeArray<int> m_results;
 
@@ -77,7 +77,7 @@ namespace Nebukam.Chemistry
         public Random random { set { m_random = value; } }
         public T_BRAIN brain { set { m_brain = value; } }
         public NativeArray<T_SLOT_INFOS> inputSlotInfos { set { m_inputSlotInfos = value; } }
-        public NativeHashMap<ByteTrio, int> inputSlotCoordinateMap { set { m_inputSlotCoordinateMap = value; } }
+        public NativeParallelHashMap<ByteTrio, int> inputSlotCoordinateMap { set { m_inputSlotCoordinateMap = value; } }
 
         // Model infos
         public int socketCount { set { m_socketCount = value; } }
@@ -93,7 +93,7 @@ namespace Nebukam.Chemistry
         public NativeArray<int> results { set { m_results = value; } }
 
         // Lookups
-        public NativeHashMap<IntPair, bool> nullPairLookup { set { m_nullPairLookup = value; } }
+        public NativeParallelHashMap<IntPair, bool> nullPairLookup { set { m_nullPairLookup = value; } }
 
         public NativeArray<float> m_debug;
         public NativeArray<float> debug { set { m_debug = value; } }
