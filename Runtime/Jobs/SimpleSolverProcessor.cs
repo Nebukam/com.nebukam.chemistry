@@ -30,7 +30,7 @@ namespace Nebukam.Chemistry
     public class SimpleSolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN> : AbstractSolverProcessor<T_SLOT, T_SLOT_INFOS, SimpleSolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN>, T_BRAIN>, ISolverProcessor<T_SLOT, T_SLOT_INFOS, T_BRAIN>
         where T_SLOT : ConstrainedSlot, ISlot
         where T_SLOT_INFOS : unmanaged, ISlotInfos<T_SLOT>
-        where T_BRAIN : unmanaged, IClusterBrain
+        where T_BRAIN : struct, IClusterBrain
     {
 
         protected override void InternalLock()

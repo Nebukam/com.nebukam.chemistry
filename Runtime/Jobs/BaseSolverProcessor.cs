@@ -31,7 +31,7 @@ namespace Nebukam.Chemistry
         where T_SLOT : ConstrainedSlot, ISlot
         where T_SLOT_INFOS : unmanaged, ISlotInfos<T_SLOT>
         where T_JOB : struct, ISolverJob<T_SLOT, T_SLOT_INFOS, T_BRAIN>
-        where T_BRAIN : unmanaged, IClusterBrain
+        where T_BRAIN : struct, IClusterBrain
     {
         
     }
